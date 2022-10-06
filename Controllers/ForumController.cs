@@ -15,8 +15,9 @@ namespace Week15Project.Controllers
             repository = forumRepository;
             this.userManager = userManager;
         }
+
         #region Room
-        public IActionResult Index()
+        public IActionResult ViewAllRooms()
         {
             var rooms = repository.GetAllRooms();
             return View(rooms);
