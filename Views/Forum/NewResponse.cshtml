@@ -1,7 +1,7 @@
 ﻿@model Response
 
 <div class="container">
-    <form asp-action="NewResponse">
+    <form asp-controller="Forum" asp-action="NewResponse">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
                 <input asp-for="PostId" class ="form-control" value="@Model.PostId" hidden/>
