@@ -1,0 +1,35 @@
+﻿@model PostViewModel
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            @Model.Post.Title
+            @Model.Post.Title
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-success" asp-action="NewResponse" asp-controller="Post" asp-route-postID="@Model.Post.PostId">Respond</a>
+            }
+        </div>
+        <div class="card-body">
+            @Model.Post.Message
+        </div>
+    </div>
+    <table class="table">
+        @foreach (var response in Model.Responses)
+        {
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-header">
+                            @response.DatePosted
+                            @response.UserId
+                        </div>
+                        <div class="card-body">
+                            @response.Message
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

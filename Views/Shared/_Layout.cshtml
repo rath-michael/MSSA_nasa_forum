@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Week15Project</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Week15Project.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">We# Forum</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse">
+                <button class="btn btn-success me-auto mb-2 mb-lg-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offCanvasLeft" aria-controls="offCanvasLeft">
+                    List Pages
+                </button>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offCanvasRight" aria-controls="offCanvasRight">
+                        @User.Identity.Name
+                    </button>
+                }
+                else
+                {
+                    <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offCanvasRight" aria-controls="offCanvasRight">
+                        Log In
+                    </button>
+                }
+            </div>
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offCanvasLeft">
+  @await Html.PartialAsync("_LeftPopIn")
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvasRight">
+    @await Html.PartialAsync("_RightPopIn")
+</div>
