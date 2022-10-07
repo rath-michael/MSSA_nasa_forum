@@ -71,7 +71,7 @@ namespace Week15Project.Controllers
         {
             try
             {
-                //newPost.Id = userManager.GetUserId(User);
+                //newPost.User.Id = userManager.GetUserId(User);
                 newPost.DatePosted = DateTime.Now;
                 newPost.Locked = false;
                 repository.AddPost(newPost);
