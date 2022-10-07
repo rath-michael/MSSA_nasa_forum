@@ -71,7 +71,7 @@ namespace Week15Project.Controllers
         {
             try
             {
-                newPost.UserId = userManager.GetUserId(User);
+                //newPost.UserId = userManager.GetUserId(User);
                 newPost.DatePosted = DateTime.Now;
                 newPost.Locked = false;
                 repository.AddPost(newPost);
@@ -97,6 +97,9 @@ namespace Week15Project.Controllers
             };
             return View(model);
         }
+        #endregion
+
+        #region Response
         /// <summary>
         /// Action takes postID, creates new response that has this postID associated with it,
         /// sends new response to view. This view gives the user the option to add message
@@ -108,7 +111,7 @@ namespace Week15Project.Controllers
         {
             Response response = new Response()
             {
-                PostId = postID
+                //PostId = postID
             };
             return View(response);
         }
@@ -124,10 +127,11 @@ namespace Week15Project.Controllers
         {
             try
             {
-                newResponse.UserId = userManager.GetUserId(User);
+                //newResponse.UserId = userManager.GetUserId(User);
                 newResponse.DatePosted = DateTime.Now;
                 repository.AddResponse(newResponse);
-                return RedirectToAction("ViewPost", new { postId = newResponse.PostId });
+                //return RedirectToAction("ViewPost", new { postId = newResponse.PostId });
+                return RedirectToAction("ViewPost", new { postId = 1 });
             }
             catch (Exception ex)
             {

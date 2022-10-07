@@ -12,7 +12,8 @@ namespace Week15Project.Models
 
         public int PostId { get; set; }
         public int RoomId { get; set; }
-        public string UserId { get; set; } = null!;
+        //public int UserId { get; set; }
+        public string Id { get; set; }
         public DateTime DatePosted { get; set; }
         public string Title { get; set; } = null!;
         public string Message { get; set; } = null!;
@@ -21,5 +22,6 @@ namespace Week15Project.Models
 
         public virtual Room Room { get; set; } = null!;
         public virtual ICollection<Response> Responses { get; set; }
+        public virtual User User { get; set; }
     }
 }

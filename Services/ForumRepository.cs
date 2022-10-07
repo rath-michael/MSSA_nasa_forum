@@ -4,8 +4,8 @@ namespace Week15Project.Services
 {
     public class ForumRepository : IForumRepository
     {
-        private ForumProjectContext context;
-        public ForumRepository(ForumProjectContext context)
+        private ApplicationDbContext context;
+        public ForumRepository(ApplicationDbContext context)
         {
             this.context = context;
         }
@@ -45,7 +45,8 @@ namespace Week15Project.Services
         // Get All Rooms
         public List<Room> GetAllRooms()
         {
-            return context.Rooms.ToList();
+            List<Room> rooms = context.Rooms.ToList();
+            return rooms;
         }
         // Update Room
         // Delete Room
@@ -94,7 +95,8 @@ namespace Week15Project.Services
         // Get All Responses
         public List<Response> GetAllResponses(int postId)
         {
-            var responses = context.Responses.Where(x => x.PostId == postId).ToList();
+            //var responses = context.Responses.Where(x => x.PostId == postId).ToList();
+            var responses = new List<Response>();
             return responses;
         }
         // Update Response

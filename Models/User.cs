@@ -6,5 +6,8 @@ namespace Week15Project.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Response> Responses { get; set; }
     }
 }

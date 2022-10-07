@@ -9,15 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IForumRepository, ForumRepository>();
-builder.Services.AddDbContext<ForumProjectContext>();
+//builder.Services.AddDbContext<ForumProjectContext>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequireUppercase = false;
-}).AddEntityFrameworkStores<UserContext>();
+}).AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddDbContext<UserContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("forumUserDatabase")));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Week15Project")));
 
 builder.Services.AddTransient<IRoomProfiler, RoomProfiler>();
 
@@ -31,7 +31,8 @@ if (!app.Environment.IsDevelopment())
 
 using (var scope = app.Services.CreateScope())
 {
-    var userDBContext = scope.ServiceProvider.GetRequiredService<UserContext>();
+    var userDBContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    //userDBContext.Database.EnsureDeleted();
     userDBContext.Database.EnsureCreated();
 }
 
