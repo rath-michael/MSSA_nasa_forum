@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Week15Project.Models.Room>
+﻿@model IEnumerable<Room>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,6 +14,7 @@
                 <div class="card-body">
                     <h3 class="card-title">@item.RoomName</h3>
                     <p class="card-text">@item.RoomDescription</p>
+                    <p class="card-text">Posts: @item.Posts.Count</p>
                     <a class="btn btn-primary stretched-link" asp-controller="Forum" asp-action="ViewRoom" asp-route-roomId="@item.RoomId">View Room</a>
                 </div> 
             </div>

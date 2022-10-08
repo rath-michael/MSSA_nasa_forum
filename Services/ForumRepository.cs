@@ -1,4 +1,5 @@
-﻿using Week15Project.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Week15Project.Models;
 
 namespace Week15Project.Services
 {
@@ -9,23 +10,6 @@ namespace Week15Project.Services
         {
             this.context = context;
         }
-
-        #region User CRUD
-        // Add User
-        //public void AddUser(User user)
-        //{
-        //    if (user != null)
-        //    {
-        //        context.Users.Add(user);
-        //        context.SaveChanges();
-        //    }
-        //}
-        // Get User
-        // Get All Users
-        // Update User
-        // Delete User
-        #endregion
-
 
         #region Room CRUD
         // Add Room
@@ -40,18 +24,52 @@ namespace Week15Project.Services
         // Get Room
         public Room GetRoom(int roomId)
         {
-            return context.Rooms.Where(x => x.RoomId == roomId).Single();
+            return context.Rooms
+                .Include(p => p.Posts)
+                .Where(x => x.RoomId == roomId)
+                .Single();
         }
         // Get All Rooms
         public List<Room> GetAllRooms()
         {
-            List<Room> rooms = context.Rooms.ToList();
-            return rooms;
+            return context.Rooms
+                .Include(p => p.Posts)
+                .ToList();
         }
         // Update Room
         // Delete Room
         #endregion
 
+        #region User CRUD
+        // Add User
+        public void AddUser(User user)
+        {
+            if (user != null)
+            {
+                context.Users.Add(user);
+                context.SaveChanges();
+            }
+        }
+        // Get User
+        public User GetUser(string userId)
+        {
+            return context.Users
+                .Include(r => r.Responses)
+                .Include(p => p.Posts)
+                .Where(x => x.Id == userId)
+                .Single();
+        }
+        // Get All Users
+        public List<User> GetAllUsers()
+        {
+            return context.Users
+                .Include(p => p.Posts)
+                .Include(r => r.Responses)
+                .ToList();
+        }
+        // Update User
+        // Delete User
+        #endregion
 
         #region Post CRUD
         // Add Post
@@ -59,7 +77,6 @@ namespace Week15Project.Services
         {
             if (post != null)
             {
-
                 context.Posts.Add(post);
                 context.SaveChanges();
             }
@@ -67,37 +84,52 @@ namespace Week15Project.Services
         // Get Post
         public Post GetPost(int postID)
         {
-            var post = context.Posts.FirstOrDefault(x => x.PostId == postID);
-            return post;
+            return context.Posts
+                .Include(r => r.Room)
+                .Include(u => u.User)
+                .Include(r => r.Responses)
+                .FirstOrDefault(x => x.PostId == postID);
         }
         // Get All Posts
         public List<Post> GetAllPosts(int roomID)
         {
-            var posts = context.Posts.Where(x => x.RoomId == roomID).ToList();
-            return posts;
+            return context.Posts
+                .Include(r => r.Room)
+                .Include(u => u.User)
+                .Include(r => r.Responses)
+                .Where(x => x.RoomId == roomID)
+                .ToList(); ;
         }
         // Update Post
         // Delete Post
         #endregion
 
-
         #region Response CRUD
         // Add Response
-        public void AddResponse(Response message)
+        public void AddResponse(Response response)
         {
-            if (message != null)
+            if (response != null)
             {
-                context.Responses.Add(message);
+                context.Responses.Add(response);
                 context.SaveChanges();
             }
         }
         // Get Response
+        public Response GetResponse(int responseId)
+        {
+            return context.Responses
+                .Include(u => u.User)
+                .Include(p => p.Post)
+                .Where(i => i.ResponseId == responseId)
+                .FirstOrDefault();
+        }
         // Get All Responses
         public List<Response> GetAllResponses(int postId)
         {
-            //var responses = context.Responses.Where(x => x.PostId == postId).ToList();
-            var responses = new List<Response>();
-            return responses;
+            return context.Responses
+                .Include(u => u.User)
+                .Where(x => x.PostId == postId)
+                .ToList();
         }
         // Update Response
         // Delete Response

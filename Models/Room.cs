@@ -12,7 +12,7 @@ namespace Week15Project.Models
 
         public int RoomId { get; set; }
         public string RoomName { get; set; } = null!;
-        public string? RoomDescription { get; set; }
+        public string RoomDescription { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
     }

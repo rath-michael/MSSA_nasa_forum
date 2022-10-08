@@ -52,7 +52,7 @@ namespace Week15Project.Controllers
                 //Response message = new Response()
                 //{
                 //    PostId = 4,
-                //    UserId = 1,
+                //    UserId = "fb3a711c-ac29-4322-97ff-155e55736444",
                 //    DatePosted = DateTime.Now,
                 //    Message = "Test Response Message"
                 //};

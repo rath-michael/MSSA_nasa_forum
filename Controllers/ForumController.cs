@@ -33,13 +33,12 @@ namespace Week15Project.Controllers
         /// <returns></returns>
         public IActionResult ViewRoom(int roomId)
         {
-            Console.WriteLine();
-            RoomViewModel viewModel = new RoomViewModel()
+            var room = repository.GetRoom(roomId);
+            foreach (var item in room.Posts)
             {
-                Room = repository.GetRoom(roomId),
-                Posts = repository.GetAllPosts(roomId)
-            };
-            return View(viewModel);
+                item.User = repository.GetUser(item.UserId);
+            }
+            return View(room);
         }
         #endregion
 
@@ -71,16 +70,17 @@ namespace Week15Project.Controllers
         {
             try
             {
-                //newPost.User.Id = userManager.GetUserId(User);
+                newPost.UserId = userManager.GetUserId(User);
                 newPost.DatePosted = DateTime.Now;
                 newPost.Locked = false;
                 repository.AddPost(newPost);
-                return RedirectToAction("ViewRoom", new { roomId = newPost.RoomId } );
+                return RedirectToAction("ViewRoom", new { roomId = newPost.RoomId });
             }
             catch (Exception ex)
             {
                 return RedirectToAction("Index");
             }
+
         }
         /// <summary>
         /// Action that returns a PostViewModel to a view, so that the post can be displayed along
@@ -90,12 +90,8 @@ namespace Week15Project.Controllers
         /// <returns></returns>
         public IActionResult ViewPost(int postId)
         {
-            PostViewModel model = new PostViewModel()
-            {
-                Post = repository.GetPost(postId),
-                Responses = repository.GetAllResponses(postId)
-            };
-            return View(model);
+            var post = repository.GetPost(postId);
+            return View(post);
         }
         #endregion
 
@@ -111,7 +107,7 @@ namespace Week15Project.Controllers
         {
             Response response = new Response()
             {
-                //PostId = postID
+                PostId = postID
             };
             return View(response);
         }
@@ -127,16 +123,15 @@ namespace Week15Project.Controllers
         {
             try
             {
-                //newResponse.UserId = userManager.GetUserId(User);
+                newResponse.UserId = userManager.GetUserId(User);
                 newResponse.DatePosted = DateTime.Now;
                 repository.AddResponse(newResponse);
-                //return RedirectToAction("ViewPost", new { postId = newResponse.PostId });
-                return RedirectToAction("ViewPost", new { postId = 1 });
             }
             catch (Exception ex)
             {
-                return RedirectToAction();
+                // LOG ERROR HERE
             }
+            return RedirectToAction("ViewPost", new { PostId = newResponse.PostId });
         }
         #endregion
     }

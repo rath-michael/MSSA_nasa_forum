@@ -12,7 +12,7 @@ namespace Week15Project.Services
         List<Room> GetAllRooms();
         List<Post> GetAllPosts(int roomID);
         List<Response> GetAllResponses(int postId);
-        //User GetUser(int id);
+        User GetUser(string id);
         Room GetRoom(int id);
         Post GetPost(int id);
         //Response GetResponse(int id);

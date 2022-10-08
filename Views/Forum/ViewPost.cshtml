@@ -1,16 +1,25 @@
-﻿@model PostViewModel
+﻿@model Post
 
 <div class="container">
     <div class="card">
         <div class="card-header">
-            @Model.Post.Title
+            @Model.Title
+            <p>Posted on: @Model.DatePosted.ToShortDateString() at @Model.DatePosted.ToShortTimeString()</p>
+            @if (Model.User != null)
+            {
+                <p>Posted by: @Model.User.UserName</p>
+            }
+            else
+            {
+                <p>Posted by: deleted</p>
+            }
             @if (User.Identity.IsAuthenticated)
             {
-                <a class="btn btn-success" asp-action="NewResponse" asp-controller="Forum" asp-route-postID="@Model.Post.PostId">Respond</a>
+                <a class="btn btn-success" asp-action="NewResponse" asp-controller="Forum" asp-route-postID="@Model.PostId">Respond</a>
             }
         </div>
         <div class="card-body">
-            @Model.Post.Message
+            @Model.Message
         </div>
     </div>
     <table class="table">
@@ -20,8 +29,15 @@
                 <td>
                     <div class="card">
                         <div class="card-header">
-                            @response.DatePosted
-                            @*@response.UserId*@
+                            Posted on: @response.DatePosted.ToShortDateString() at @response.DatePosted.ToShortTimeString()
+                            @if (response.User != null)
+                            {
+                                <p>Posted by: @response.User.UserName</p>
+                            }
+                            else
+                            {
+                                <p>Posted by: deleted</p>
+                            }
                         </div>
                         <div class="card-body">
                             @response.Message

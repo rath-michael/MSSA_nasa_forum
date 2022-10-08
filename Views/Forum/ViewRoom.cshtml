@@ -1,4 +1,4 @@
-﻿@model RoomViewModel
+﻿@model Room
 @{
     ViewData["Title"] = "ViewRoom";
 }
@@ -7,10 +7,10 @@
     <div class="m-auto">
     <div class="card">
         <div class="card-header d-flex">
-            <h1 class="p-2 me-auto">@Model.Room.RoomName</h1>
+            <h1 class="p-2 me-auto">@Model.RoomName</h1>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <a class="btn btn-success" asp-controller="Forum" asp-action="NewPost" asp-route-roomID="@Model.Room.RoomId">New Thread</a>
+                    <a class="btn btn-success" asp-controller="Forum" asp-action="NewPost" asp-route-roomID="@Model.RoomId">New Post</a>
                 }
         </div>
         <div class="card-body">
@@ -20,7 +20,16 @@
                     <div class="card-header">
                         <a asp-controller="Forum" asp-action="ViewPost" asp-route-postId="@item.PostId">
                             <h4 class="m-auto">@item.Title</h4>
-                        </a>
+                            <p>Posted on: @item.DatePosted at @item.DatePosted.ToShortTimeString()</p>
+                            @if (item.User != null)
+                            {
+                                <h6 class="m-auto">Posted by: @item.User.UserName</h6>
+                            }
+                            else
+                            {
+                                <p>Posted by: deleted</p>
+                            }
+                            </a>
                     </div>
                     <div class="card-body">
                         <p>@item.Message</p>
