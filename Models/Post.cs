@@ -16,7 +16,8 @@ namespace Week15Project.Models
         public string Title { get; set; } = null!;
         public string Message { get; set; } = null!;
         public byte[]? UserImage { get; set; }
-        public bool Locked { get; set; }
+        public string? WebURL { get; set; }
+        //public bool Locked { get; set; }
         public virtual Room Room { get; set; } = null!;
         public virtual ICollection<Response> Responses { get; set; }
         public virtual User User { get; set; }

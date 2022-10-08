@@ -72,7 +72,7 @@ namespace Week15Project.Controllers
             {
                 newPost.UserId = userManager.GetUserId(User);
                 newPost.DatePosted = DateTime.Now;
-                newPost.Locked = false;
+                //newPost.Locked = false;
                 repository.AddPost(newPost);
                 return RedirectToAction("ViewRoom", new { roomId = newPost.RoomId });
             }
