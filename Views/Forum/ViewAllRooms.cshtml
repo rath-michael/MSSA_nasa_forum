@@ -6,10 +6,11 @@
 
 <h1>View All Current Rooms</h1>
 
-<div class="row">
+<div class="container">
+    <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-sm-3">
+        <div class="col-md-3 mb-3">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h3 class="card-title">@item.RoomName</h3>
@@ -20,4 +21,5 @@
             </div>
         </div>
     }
+</div>
 </div>

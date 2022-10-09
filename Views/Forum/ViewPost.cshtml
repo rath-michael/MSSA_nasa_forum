@@ -1,51 +1,121 @@
 ﻿@model Post
 
+
 <div class="container">
-    <div class="card">
-        <div class="card-header">
-            @Model.Title
-            <p>Posted on: @Model.DatePosted.ToShortDateString() at @Model.DatePosted.ToShortTimeString()</p>
-            @if (Model.User != null)
-            {
-                <p>Posted by: @Model.User.UserName</p>
-            }
-            else
-            {
-                <p>Posted by: deleted</p>
-            }
-            @if (User.Identity.IsAuthenticated)
-            {
-                <a class="btn btn-success" asp-action="NewResponse" asp-controller="Forum" asp-route-postID="@Model.PostId">Respond</a>
-            }
-        </div>
-        <div class="card-body">
-            <a href="@Model.WebURL">@Model.WebURL</a>
-            @Model.Message
+    <div class="m-auto">
+        <div class="card">
+            <div class="card-header">
+                <div class="list-group">
+                    <h1 class="p-2 me-auto">@Model.Room.RoomName</h1>
+                    <div class="list-group-item bg-light">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@Model.Title</h5>
+                            <small>@Model.DatePosted.ToShortDateString() at @Model.DatePosted.ToShortTimeString()</small>
+                        </div>
+                        <a href="@Model.WebURL">@Model.WebURL</a>
+                        <p class="mb-1">@Html.Raw(@Model.Message.Replace("\n", "<br/>"))</p>
+                        @if (Model.User != null)
+                        {
+                            <small>Posted by @Model.User.UserName</small>
+                        }
+                        else
+                        {
+                            <small>User Deleted</small>
+                        }
+                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-success" asp-controller="Forum" asp-action="NewResponse" asp-route-postID="@Model.PostId">Respond</a>
+                    }
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    @foreach (var item in Model.Responses)
+                    {
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                @if (item.User != null)
+                                {
+                                    <h6 class="mb-1">Posted by @item.User.UserName</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="mb-1">User Deleted</h6>
+                                }
+                                <small>@item.DatePosted.ToShortDateString() @item.DatePosted.ToShortTimeString()</small>
+                            </div>
+                            <p class="mb-1">@Html.Raw(@item.Message.Replace("\n", "<br/>"))</p>
+            
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
-    <table class="table">
-        @foreach (var response in Model.Responses)
-        {
-            <tr>
-                <td>
-                    <div class="card">
-                        <div class="card-header">
-                            Posted on: @response.DatePosted.ToShortDateString() at @response.DatePosted.ToShortTimeString()
-                            @if (response.User != null)
-                            {
-                                <p>Posted by: @response.User.UserName</p>
-                            }
-                            else
-                            {
-                                <p>Posted by: deleted</p>
-                            }
-                        </div>
-                        <div class="card-body">
-                            @response.Message
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        }
-    </table>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+@*
+
+<h6>@Model.Room.RoomName</h6>
+<div class="container">
+    <div class="m-auto">
+        <div class="card">
+            <div class="card-header bg-dark">
+                <div class="list-group-item bg-light">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">@Model.Title</h5>
+                        <small>@Model.DatePosted.ToShortDateString() at @Model.DatePosted.ToShortTimeString()</small>
+                    </div>
+                    <a href="@Model.WebURL">@Model.WebURL</a>
+                    <p class="mb-1">@Html.Raw(@Model.Message.Replace("\n", "<br/>"))</p>
+                    @if (Model.User != null)
+                    {
+                        <small>Posted by @Model.User.UserName</small>
+                    }
+                    else
+                    {
+                        <small>User Deleted</small>
+                    }
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-success" asp-controller="Forum" asp-action="NewResponse" asp-route-postID="@Model.PostId">Respond</a>
+                }
+            </div>
+            <div class="card-body bg-dark">
+                <div class="list-group">
+                    @foreach (var item in Model.Responses)
+                    {
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                @if (item.User != null)
+                                {
+                                    <h6 class="mb-1">Posted by @item.User.UserName</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="mb-1">User Deleted</h6>
+                                }
+                                <small>@item.DatePosted.ToShortDateString() @item.DatePosted.ToShortTimeString()</small>
+                            </div>
+                            <p class="mb-1">@Html.Raw(@item.Message.Replace("\n", "<br/>"))</p>
+            
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>*@

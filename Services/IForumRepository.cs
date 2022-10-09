@@ -15,6 +15,8 @@ namespace Week15Project.Services
         User GetUser(string id);
         Room GetRoom(int id);
         Post GetPost(int id);
+        int GetNewestPostId();
+        int GetMostPopularPostId();
         //Response GetResponse(int id);
         //void UpdateUser(User user);
         //void UpdateRoom(Room room);

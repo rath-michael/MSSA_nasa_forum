@@ -21,16 +21,17 @@ namespace Week15Project.Models
 
             builder.Entity<Post>(entity =>
             {
-                entity.HasOne(d => d.Room)
+                entity.HasOne(r => r.Room)
                     .WithMany(p => p.Posts)
                     //.HasForeignKey(d => d.RoomId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
                     //.HasConstraintName("FK_Posts_Responses");
 
-                entity.HasOne(d => d.User)
+                entity.HasOne(u => u.User)
                     .WithMany(p => p.Posts);
-                    //.HasForeignKey(d => d.UserId)
-                    //.HasConstraintName("FK_Posts_Users");
+                //.HasForeignKey(d => d.UserId)
+                //.HasConstraintName("FK_Posts_Users");
+
             });
 
             builder.Entity<Response>(entity =>

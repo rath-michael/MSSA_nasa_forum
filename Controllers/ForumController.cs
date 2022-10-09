@@ -93,6 +93,24 @@ namespace Week15Project.Controllers
             var post = repository.GetPost(postId);
             return View(post);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult ViewNewestPost()
+        {
+            int id = repository.GetNewestPostId();
+            return RedirectToAction("ViewPost", new { postId = id });
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult ViewMostPopularToday()
+        {
+            int id = repository.GetMostPopularPostId();
+            return RedirectToAction("ViewPost", new { postId = id });
+        }
         #endregion
 
         #region Response

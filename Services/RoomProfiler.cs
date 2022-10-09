@@ -5,7 +5,6 @@ namespace Week15Project.Services
     public class RoomProfiler : IRoomProfiler
     {
         private IForumRepository repository;
-
         public RoomProfiler(IForumRepository repository)
         {
             this.repository = repository;
@@ -14,11 +13,6 @@ namespace Week15Project.Services
         public List<Room> GetAllRooms()
         {
             return repository.GetAllRooms();
-        }
-
-        public int GetPostCountPerRoom(int roomId)
-        {
-            return repository.GetPostCountPerRoom(roomId);
         }
     }
 }

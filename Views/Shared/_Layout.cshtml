@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Week15Project.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="bg-secondary">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">We# Forum</a>
@@ -17,7 +17,7 @@
             </button>
             <div class="collapse navbar-collapse">
                 <button class="btn btn-success me-auto mb-2 mb-lg-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offCanvasLeft" aria-controls="offCanvasLeft">
-                    List Pages
+                    View Rooms
                 </button>
                 @if (User.Identity.IsAuthenticated)
                 {

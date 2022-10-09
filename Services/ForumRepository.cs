@@ -102,6 +102,19 @@ namespace Week15Project.Services
         }
         // Update Post
         // Delete Post
+        public int GetNewestPostId()
+        {
+            Post post = context.Posts.OrderByDescending(x => x.DatePosted).FirstOrDefault();
+            return post.PostId;
+        }
+        public int GetMostPopularPostId()
+        {
+            var limit = DateTime.Now.AddDays(-1);
+            //Post post = context.Posts.OrderBy(x => x.Responses.Count).FirstOrDefault();
+            List<Post> postsToday = context.Posts.Where(x => x.DatePosted > limit).Include(r => r.Responses).ToList();
+            Post post = postsToday.OrderByDescending(x => x.Responses.Count).FirstOrDefault();
+            return post.PostId;
+        }
         #endregion
 
         #region Response CRUD

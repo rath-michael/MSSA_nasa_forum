@@ -16,28 +16,50 @@
         <div class="card-body">
             @foreach (var item in Model.Posts)
             {
-                <div class="card">
-                    <div class="card-header">
-                        <a asp-controller="Forum" asp-action="ViewPost" asp-route-postId="@item.PostId">
-                            <h4 class="m-auto">@item.Title</h4>
-                            <p>Posted on: @item.DatePosted at @item.DatePosted.ToShortTimeString()</p>
-                            @if (item.User != null)
-                            {
-                                <h6 class="m-auto">Posted by: @item.User.UserName</h6>
-                            }
-                            else
-                            {
-                                <p>Posted by: deleted</p>
-                            }
-                            </a>
+                <div class="list-group">
+                    <a asp-controller="Forum" asp-action="ViewPost" asp-route-postId="@item.PostId" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">@item.Title</h5>
+                        <small>@item.DatePosted.ToShortDateString() @item.DatePosted.ToShortTimeString()</small>
                     </div>
-                    <div class="card-body">
-                        <a href="@item.WebURL">@item.WebURL</a>
-                        <p>@item.Message</p>
-                    </div>
+                    <p class="mb-1">@item.Message</p>
+                    @if (item.User != null)
+                    {
+                        <small>Posted by @item.User.UserName</small>
+                    }
+                    else
+                    {
+                        <small>User Deleted</small>
+                    }
+                    <br/>
+                    <small>Replies: @item.Responses.Count</small>
+                    </a>
                 </div>
             }
         </div>
     </div>
 </div>
 </div>
+
+@*<div class="container">
+    @foreach (var item in Model.Posts)
+    {
+        <div class="list-group">
+            <a asp-controller="Forum" asp-action="ViewPost" asp-route-postId="@item.PostId" class="list-group-item list-group-item-action flex-column align-items-start active">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">@item.Title</h5>
+                <small>@item.DatePosted.ToShortDateString() @item.DatePosted.ToShortTimeString()</small>
+            </div>
+            <p class="mb-1">@item.Message</p>
+                @if (item.User != null)
+                {
+                    <small>@item.User.UserName</small>
+                }
+                else
+                {
+                    <small>User Deleted</small>
+                }
+            </a>
+        </div>
+    }
+</div>*@
