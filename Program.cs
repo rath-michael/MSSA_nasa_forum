@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IForumRepository, ForumRepository>();
-//builder.Services.AddDbContext<ForumProjectContext>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {

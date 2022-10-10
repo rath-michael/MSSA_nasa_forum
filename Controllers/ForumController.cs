@@ -3,6 +3,7 @@ using Week15Project.Services;
 using Week15Project.Models.ViewModels;
 using Week15Project.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Week15Project.Controllers
 {
@@ -21,6 +22,7 @@ namespace Week15Project.Controllers
         /// Action to return all rooms currently available from database
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         public IActionResult ViewAllRooms()
         {
             var rooms = repository.GetAllRooms();
@@ -31,6 +33,7 @@ namespace Week15Project.Controllers
         /// </summary>
         /// <param name="roomId"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         public IActionResult ViewRoom(int roomId)
         {
             var room = repository.GetRoom(roomId);
@@ -50,6 +53,7 @@ namespace Week15Project.Controllers
         /// </summary>
         /// <param name="roomID"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin,User")]
         public IActionResult NewPost(int roomID)
         {
             Post newPost = new Post()
@@ -65,6 +69,7 @@ namespace Week15Project.Controllers
         /// </summary>
         /// <param name="newPost"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public IActionResult NewPost(Post newPost)
         {
@@ -121,6 +126,7 @@ namespace Week15Project.Controllers
         /// </summary>
         /// <param name="postID"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin,User")]
         public IActionResult NewResponse(int postID)
         {
             Response response = new Response()
