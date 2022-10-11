@@ -17,53 +17,6 @@ namespace Week15Project.Controllers
 
         public IActionResult Index()
         {
-            try
-            {
-                // User
-                //User user = new User() 
-                //{ 
-                //    Email = "name@mail.com", 
-                //    Username = "TestUser1",
-                //    Password = "Password",
-                //    Permission = false
-                //};
-                //repository.AddUser(user);
-
-                // Room
-                //Room room = new Room()
-                //{
-                //    RoomName = "TestRoom"
-                //};
-                //repository.AddRoom(room);
-
-                // Post
-                //Post post = new Post()
-                //{
-                //    RoomId = 1,
-                //    UserId = "41baed07-b628-499d-9e6c-16ba4192a358",
-                //    DatePosted = DateTime.Now,
-                //    Title = "TEST TEST",
-                //    Message = "New Post Message",
-                //    Locked = false
-                //};
-                //repository.AddPost(post);
-
-                // Message
-                //Response message = new Response()
-                //{
-                //    PostId = 4,
-                //    UserId = "fb3a711c-ac29-4322-97ff-155e55736444",
-                //    DatePosted = DateTime.Now,
-                //    Message = "Test Response Message"
-                //};
-                //repository.AddResponse(message);
-
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
             return View(new LoginViewModel());
         }
 

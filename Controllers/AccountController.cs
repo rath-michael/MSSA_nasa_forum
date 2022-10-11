@@ -39,24 +39,8 @@ namespace Week15Project.Controllers
                 }
             }
             ModelState.AddModelError("", errorMessage: "Login unsuccessful");
-            //return View();
             return RedirectToAction("Index", "Home");
         }
-        //[HttpPost]
-        //public async Task<IActionResult> Login(LoginViewModel loginViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var result = await signInManager.PasswordSignInAsync(loginViewModel.UserName, loginViewModel.Password, loginViewModel.RememberMe, false);
-        //        if (result.Succeeded)
-        //        {
-        //            return RedirectToAction("Index", "Home");
-        //        }
-        //    }
-        //    ModelState.AddModelError("", errorMessage: "Login unsuccessful");
-        //    //return View();
-        //    return RedirectToAction("Index", "Home");
-        //}
 
         public IActionResult Register()
         {

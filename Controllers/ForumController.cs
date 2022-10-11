@@ -36,17 +36,19 @@ namespace Week15Project.Controllers
         [AllowAnonymous]
         public IActionResult ViewRoom(int roomId)
         {
-            //var room = repository.GetRoom(roomId);
-            //foreach (var item in room.Posts)
-            //{
-            //    item.User = repository.GetUser(item.UserId);
-            //}
-            //return View(room);
-
             Room room = repository.GetRoom(roomId);
-            return View(room);
-
-            //return RedirectToRoute("Index", "Error");
+            if (room == null)
+            {
+                return RedirectToRoute("Error", "Home");
+            }
+            else
+            {
+                foreach (var item in room.Posts)
+                {
+                    item.User = repository.GetUser(item.UserId);
+                }
+                return View(room);
+            }
         }
         #endregion
 
@@ -104,7 +106,7 @@ namespace Week15Project.Controllers
             {
                 return View(post);
             }
-            return RedirectToRoute("Index", "Error");
+            return RedirectToRoute("Error", "Home");
         }
         /// <summary>
         /// 
@@ -117,7 +119,7 @@ namespace Week15Project.Controllers
             {
                 return RedirectToAction("ViewPost", new { postId = newestPost.PostId });
             }
-            return RedirectToRoute("Index", "Error");
+            return RedirectToRoute("Error", "Home");
         }
         /// <summary>
         /// 
@@ -130,7 +132,7 @@ namespace Week15Project.Controllers
             {
                 return RedirectToAction("ViewPost", new { postId = popularPost.PostId });
             }
-            return RedirectToRoute("Index", "Error");
+            return RedirectToRoute("Error", "Home");
         }
         #endregion
 
