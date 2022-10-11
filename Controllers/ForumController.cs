@@ -36,12 +36,17 @@ namespace Week15Project.Controllers
         [AllowAnonymous]
         public IActionResult ViewRoom(int roomId)
         {
-            var room = repository.GetRoom(roomId);
-            foreach (var item in room.Posts)
-            {
-                item.User = repository.GetUser(item.UserId);
-            }
+            //var room = repository.GetRoom(roomId);
+            //foreach (var item in room.Posts)
+            //{
+            //    item.User = repository.GetUser(item.UserId);
+            //}
+            //return View(room);
+
+            Room room = repository.GetRoom(roomId);
             return View(room);
+
+            //return RedirectToRoute("Index", "Error");
         }
         #endregion
 
@@ -77,7 +82,6 @@ namespace Week15Project.Controllers
             {
                 newPost.UserId = userManager.GetUserId(User);
                 newPost.DatePosted = DateTime.Now;
-                //newPost.Locked = false;
                 repository.AddPost(newPost);
                 return RedirectToAction("ViewRoom", new { roomId = newPost.RoomId });
             }
@@ -95,8 +99,12 @@ namespace Week15Project.Controllers
         /// <returns></returns>
         public IActionResult ViewPost(int postId)
         {
-            var post = repository.GetPost(postId);
-            return View(post);
+            Post post = repository.GetPost(postId);
+            if (post != null)
+            {
+                return View(post);
+            }
+            return RedirectToRoute("Index", "Error");
         }
         /// <summary>
         /// 
@@ -104,8 +112,12 @@ namespace Week15Project.Controllers
         /// <returns></returns>
         public IActionResult ViewNewestPost()
         {
-            int id = repository.GetNewestPostId();
-            return RedirectToAction("ViewPost", new { postId = id });
+            Post newestPost = repository.GetNewestPostId();
+            if (newestPost != null)
+            {
+                return RedirectToAction("ViewPost", new { postId = newestPost.PostId });
+            }
+            return RedirectToRoute("Index", "Error");
         }
         /// <summary>
         /// 
@@ -113,8 +125,12 @@ namespace Week15Project.Controllers
         /// <returns></returns>
         public IActionResult ViewMostPopularToday()
         {
-            int id = repository.GetMostPopularPostId();
-            return RedirectToAction("ViewPost", new { postId = id });
+            Post popularPost = repository.GetMostPopularPostId();
+            if (popularPost != null)
+            {
+                return RedirectToAction("ViewPost", new { postId = popularPost.PostId });
+            }
+            return RedirectToRoute("Index", "Error");
         }
         #endregion
 

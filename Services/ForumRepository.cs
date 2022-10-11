@@ -98,22 +98,21 @@ namespace Week15Project.Services
                 .Include(u => u.User)
                 .Include(r => r.Responses)
                 .Where(x => x.RoomId == roomID)
-                .ToList(); ;
+                .ToList();
         }
         // Update Post
         // Delete Post
-        public int GetNewestPostId()
+        public Post GetNewestPostId()
         {
             Post post = context.Posts.OrderByDescending(x => x.DatePosted).FirstOrDefault();
-            return post.PostId;
+            return post;
         }
-        public int GetMostPopularPostId()
+        public Post GetMostPopularPostId()
         {
             var limit = DateTime.Now.AddDays(-1);
-            //Post post = context.Posts.OrderBy(x => x.Responses.Count).FirstOrDefault();
             List<Post> postsToday = context.Posts.Where(x => x.DatePosted > limit).Include(r => r.Responses).ToList();
             Post post = postsToday.OrderByDescending(x => x.Responses.Count).FirstOrDefault();
-            return post.PostId;
+            return post;
         }
         #endregion
 

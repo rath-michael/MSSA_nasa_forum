@@ -23,9 +23,24 @@ builder.Services.AddTransient<IRoomProfiler, RoomProfiler>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+//if (!app.Environment.IsDevelopment())
+//{
+//    app.UseExceptionHandler("/Home/Error");
+//}
+//else
+//{
+//    app.UseExceptionHandler("/Error");
+//}
+
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    //app.UseDeveloperExceptionPage();
+    //app.UseStatusCodePages();
+    app.UseExceptionHandler("/Error");
+}
+else if (app.Environment.IsProduction())
+{
+    app.UseExceptionHandler("/Error");
 }
 
 using (var scope = app.Services.CreateScope())
