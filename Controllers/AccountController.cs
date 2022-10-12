@@ -90,5 +90,12 @@ namespace Week15Project.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<ActionResult> GetUserProfile(){
+
+            User user = await userManager.GetUserAsync(User);
+            
+            return View();
+        }
     }
 }

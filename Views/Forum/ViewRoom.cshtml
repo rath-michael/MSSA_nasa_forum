@@ -40,26 +40,3 @@
     </div>
 </div>
 </div>
-
-@*<div class="container">
-    @foreach (var item in Model.Posts)
-    {
-        <div class="list-group">
-            <a asp-controller="Forum" asp-action="ViewPost" asp-route-postId="@item.PostId" class="list-group-item list-group-item-action flex-column align-items-start active">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">@item.Title</h5>
-                <small>@item.DatePosted.ToShortDateString() @item.DatePosted.ToShortTimeString()</small>
-            </div>
-            <p class="mb-1">@item.Message</p>
-                @if (item.User != null)
-                {
-                    <small>@item.User.UserName</small>
-                }
-                else
-                {
-                    <small>User Deleted</small>
-                }
-            </a>
-        </div>
-    }
-</div>*@

@@ -27,17 +27,11 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
-else
-{
-    app.UseDeveloperExceptionPage();
-    app.UseStatusCodePages();
-    //app.UseExceptionHandler("/Error");
-}
 
 using (var scope = app.Services.CreateScope())
 {
     var userDBContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    //userDBContext.Database.EnsureDeleted();
+    userDBContext.Database.EnsureDeleted();
     userDBContext.Database.EnsureCreated();
 }
 

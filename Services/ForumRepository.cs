@@ -102,12 +102,12 @@ namespace Week15Project.Services
         }
         // Update Post
         // Delete Post
-        public Post GetNewestPostId()
+        public Post GetNewestPost()
         {
             Post post = context.Posts.OrderByDescending(x => x.DatePosted).FirstOrDefault();
             return post;
         }
-        public Post GetMostPopularPostId()
+        public Post GetMostPopularPostToday()
         {
             var limit = DateTime.Now.AddDays(-1);
             List<Post> postsToday = context.Posts.Where(x => x.DatePosted > limit).Include(r => r.Responses).ToList();
