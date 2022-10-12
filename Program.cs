@@ -19,6 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Week15Project")));
 
 builder.Services.AddTransient<IRoomProfiler, RoomProfiler>();
+builder.Services.AddTransient<IUserProfiler, UserProfiler>();
 
 var app = builder.Build();
 

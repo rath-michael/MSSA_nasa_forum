@@ -1,0 +1,32 @@
+﻿@model User
+
+<div class="container">
+    <p>@Model.UserName</p>
+    <p>@Model.DateCreated</p>
+    <p>@Model.Color</p>
+    <p>Posts</p>
+    @foreach (var item in Model.Posts)
+    {
+        <div class="card">
+            <div class="card-header">
+                <p>@item.Title</p>
+                <p>@item.DatePosted</p>
+            </div>
+            <div class="card-body">
+                <p>@item.Message</p>
+            </div>
+        </div>
+    }
+    <p>Responses</p>
+    @foreach (var item in Model.Responses)
+    {
+        <div class="card">
+            <div class="card-header">
+                <p>@item.DatePosted</p>
+            </div>
+            <div class="card-body">
+                <p>@item.Message</p>
+            </div>
+        </div>
+    }
+</div>

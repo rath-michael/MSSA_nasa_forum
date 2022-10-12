@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Week15Project.Models;
 using Week15Project.Models.ViewModels;
+using Week15Project.Services;
 
 namespace Week15Project.Controllers
 {
@@ -10,17 +11,20 @@ namespace Week15Project.Controllers
         private SignInManager<User> signInManager;
         private UserManager<User> userManager;
         private RoleManager<IdentityRole> roleManager;
+        private IForumRepository repository;
 
         public AccountController(SignInManager<User> _signInManager, UserManager<User> _userManager,
-            RoleManager<IdentityRole> _roleManager)
+            RoleManager<IdentityRole> _roleManager, IForumRepository forumRepository)
         {
             signInManager = _signInManager;
             userManager = _userManager;
             roleManager = _roleManager;
+            repository = forumRepository;
         }
 
         public IActionResult Login()
         {
+            
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
@@ -91,11 +95,25 @@ namespace Week15Project.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<ActionResult> GetUserProfile(){
+        public async Task<ActionResult> GetUserProfile()
+        {
+            User currentUser = await userManager.GetUserAsync(User);
 
-            User user = await userManager.GetUserAsync(User);
+            UserViewModel model = new UserViewModel()
+            {
+                User = currentUser,
+                Posts = repository.GetPostsByUser(currentUser.Id),
+                Responses = repository.GetResponsesByUser(currentUser.Id)
+            };
             
-            return View();
+            return View(model);
+
+        }
+
+        public IActionResult ViewUserProfile(string id)
+        {
+            var user = repository.GetUser(id);
+            return View(user);
         }
     }
 }

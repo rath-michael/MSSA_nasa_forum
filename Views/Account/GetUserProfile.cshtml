@@ -1,0 +1,18 @@
+﻿@model UserViewModel
+
+@{
+    ViewData["Title"] = "GetUserProfile";
+}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h6>@Model.User.UserName</h6>
+        </div>
+        <div class="card-body">
+            <p>Join Date: @Model.User.DateCreated.ToShortDateString()</p>
+            <p>@Model.Posts.Count Posts</p>
+            <p>@Model.Responses.Count Responses</p>
+        </div>
+    </div>
+</div>

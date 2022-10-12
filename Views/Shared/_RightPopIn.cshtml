@@ -1,14 +1,21 @@
-﻿
+﻿@inject IUserProfiler profiler
+
+@{
+    profiler.AssignUser(User.Identity.Name);
+}
+
+
 <div>
     @if (User.Identity.IsAuthenticated)
     {
         <div>
             Signed in as: @User.Identity.Name
+            <a asp-action="GetUserProfile" asp-controller="Account" asp-area="">Get User Profile</a>
         </div>
         <div>
-            @* Date Joined *@
-            @* # Posts *@
-            @* # Comments *@
+            <p>Joined: @profiler.CurrentUser.DateCreated.ToShortDateString()</p>
+            <p>@profiler.PostCount Posts</p>
+            <p>@profiler.ResponseCount Responses</p>
         </div>
         <a class="btn btn-success" asp-area="" asp-controller="Account" asp-action="Logout">Log Out</a>
     }

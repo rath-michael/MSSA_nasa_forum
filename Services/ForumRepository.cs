@@ -59,6 +59,10 @@ namespace Week15Project.Services
                 .Where(x => x.Id == userId)
                 .Single();
         }
+        public User GetUserByName(string username)
+        {
+            return context.Users.Where(u => u.UserName == username).FirstOrDefault();
+        }
         // Get All Users
         public List<User> GetAllUsers()
         {
@@ -89,6 +93,11 @@ namespace Week15Project.Services
                 .Include(u => u.User)
                 .Include(r => r.Responses)
                 .FirstOrDefault(x => x.PostId == postID);
+        }
+        public List<Post> GetPostsByUser(string userId)
+        {
+            List<Post> posts = context.Posts.Where(p => p.UserId == userId).ToList();
+            return posts;
         }
         // Get All Posts
         public List<Post> GetAllPosts(int roomID)
@@ -134,6 +143,11 @@ namespace Week15Project.Services
                 .Include(p => p.Post)
                 .Where(i => i.ResponseId == responseId)
                 .FirstOrDefault();
+        }
+        public List<Response> GetResponsesByUser(string userId)
+        {
+            var responses = context.Responses.Where(r => r.UserId == userId).ToList();
+            return responses;
         }
         // Get All Responses
         public List<Response> GetAllResponses(int postId)

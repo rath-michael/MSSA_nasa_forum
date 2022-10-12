@@ -16,7 +16,7 @@
                         <p class="mb-1">@Html.Raw(@Model.Message.Replace("\n", "<br/>"))</p>
                         @if (Model.User != null)
                         {
-                            <small>Posted by @Model.User.UserName</small>
+                            <p>Posted by: <a asp-controller="Account" asp-action="ViewUserProfile" asp-route-id="@Model.UserId">@Model.User.UserName</a> </p>
                         }
                         else
                         {
@@ -37,7 +37,7 @@
                             <div class="d-flex w-100 justify-content-between">
                                 @if (item.User != null)
                                 {
-                                    <h6 class="mb-1">Posted by @item.User.UserName</h6>
+                                    <p>Posted by: <a asp-controller="Account" asp-action="ViewUserProfile" asp-route-id="@item.User.Id">@item.User.UserName</a></p>
                                 }
                                 else
                                 {
