@@ -1,0 +1,49 @@
+﻿@model Week15Project.Models.News.NASA_POTD
+
+@{
+    ViewData["Title"] = "NasaPOTD";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DatePosted)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Explanation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Explanation)
+        </dd>
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Hdurl)
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="@Model.Hdurl" class="img-fluid rounded-start" style="height: 250px;"/>
+        </dd>*@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Url)
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="@Model.Url" class="img-fluid rounded-start" style="height: 250px;"/>
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a class="btn btn-success" asp-controller="News" asp-action="NasaPOTD" asp-route-date="@Model.DatePosted.AddDays(-1)">View Previous</a>
+    @if (Model.DatePosted < DateTime.Today)
+    {
+        <a class="btn btn-success" asp-controller="News" asp-action="NasaPOTD" asp-route-date="@Model.DatePosted.AddDays(1)">View Next</a>
+    }
+</div>

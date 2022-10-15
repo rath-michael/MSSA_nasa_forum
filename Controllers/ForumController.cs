@@ -11,10 +11,10 @@ namespace Week15Project.Controllers
     {
         private IForumRepository repository;
         private UserManager<User> userManager;
-        public ForumController(IForumRepository forumRepository, UserManager<User> userManager)
+        public ForumController(IForumRepository _repository, UserManager<User> _userManager)
         {
-            repository = forumRepository;
-            this.userManager = userManager;
+            repository = _repository;
+            userManager = _userManager;
         }
 
         #region Room
@@ -41,14 +41,6 @@ namespace Week15Project.Controllers
                 }
                 return View(room);
             }
-
-            //Room room = repository.GetRoom(roomId);
-            //RoomViewModel model = new RoomViewModel()
-            //{
-            //    Room = room,
-            //    Posts = room.Posts.OrderBy(p => p.Responses.)
-            //};
-
         }
         #endregion
 
@@ -135,11 +127,5 @@ namespace Week15Project.Controllers
             return RedirectToAction("ViewPost", new { PostId = newResponse.PostId });
         }
         #endregion
-    }
-
-    public class RoomViewModel
-    {
-        public Room Room { get; set; }
-        public List<Post> Posts { get; set; }
     }
 }

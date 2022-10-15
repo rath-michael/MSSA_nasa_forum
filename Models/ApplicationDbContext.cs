@@ -59,7 +59,8 @@ namespace Week15Project.Models
                 new Room() { RoomId = 3, RoomName = "International Space Station", RoomDescription = "Discussion about the International Space Station." },
                 new Room() { RoomId = 4, RoomName = "Q&A Section", RoomDescription = "Ask a specific question. Get a specific answer." },
                 new Room() { RoomId = 5, RoomName = "SpaceX", RoomDescription = "Past missions. Current missions. Future missions. All here." },
-                new Room() { RoomId = 6, RoomName = "Images & Videos", RoomDescription = "A place to share images and videos." }
+                new Room() { RoomId = 6, RoomName = "Images & Videos", RoomDescription = "A place to share images and videos." },
+                new Room() { RoomId = 7, RoomName = "Upcoming Events", RoomDescription = "A place to discuss upcoming events as seen in the 'Upcoming Events' Page"}
                 );
 
             builder.Entity<IdentityRole>().HasData(

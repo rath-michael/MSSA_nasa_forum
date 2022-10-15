@@ -1,0 +1,10 @@
+﻿@model IEnumerable<EventResult>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@foreach (var item in Model) {
+    @await Html.PartialAsync("_NewsResultView", item);
+
+}

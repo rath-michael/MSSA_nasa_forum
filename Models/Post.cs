@@ -18,6 +18,8 @@ namespace Week15Project.Models
         public byte[]? UserImage { get; set; }
         public string? WebURL { get; set; }
         //public bool Locked { get; set; }
+        public int EventId { get; set; } // associates post with news event
+        public int POTDDate { get; set; } // associates post with nasa potd
         public virtual Room Room { get; set; } = null!;
         public virtual ICollection<Response> Responses { get; set; }
         public virtual User User { get; set; }

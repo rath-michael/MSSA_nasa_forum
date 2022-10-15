@@ -22,6 +22,8 @@ namespace Week15Project.Services
         List<Post> GetPostsByUser(string userId);
         Post GetNewestPost();
         Post GetMostPopularPostToday();
+
+        int GetPostIdFromEventId(int newsId);
         #endregion
 
         #region Response

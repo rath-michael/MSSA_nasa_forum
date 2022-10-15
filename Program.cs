@@ -21,6 +21,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddTransient<IRoomProfiler, RoomProfiler>();
 builder.Services.AddTransient<IUserProfiler, UserProfiler>();
 
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 //Configure the HTTP request pipeline.

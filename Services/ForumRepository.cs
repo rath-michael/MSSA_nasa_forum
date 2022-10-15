@@ -123,6 +123,16 @@ namespace Week15Project.Services
             Post post = postsToday.OrderByDescending(x => x.Responses.Count).FirstOrDefault();
             return post;
         }
+
+        public int GetPostIdFromEventId(int newsId)
+        {
+            var post = context.Posts.Where(n => n.EventId == newsId).SingleOrDefault();
+            if (post == null)
+            {
+                return 0;
+            }
+            return post.PostId;
+        }
         #endregion
 
         #region Response CRUD
