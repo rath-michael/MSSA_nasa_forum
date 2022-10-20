@@ -10,7 +10,7 @@
     {
         <div>
             Signed in as: @User.Identity.Name
-            <a asp-action="GetUserProfile" asp-controller="Account" asp-area="">Get User Profile</a>
+            <a asp-action="ViewCurrentUserProfile" asp-controller="Account" asp-area="">Get User Profile</a>
         </div>
         <div>
             <p>Joined: @profiler.CurrentUser.DateCreated.ToShortDateString()</p>

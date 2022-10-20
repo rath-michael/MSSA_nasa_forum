@@ -23,14 +23,11 @@ namespace Week15Project.Models
             {
                 entity.HasOne(r => r.Room)
                     .WithMany(p => p.Posts)
-                    //.HasForeignKey(d => d.RoomId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-                    //.HasConstraintName("FK_Posts_Responses");
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(u => u.User)
-                    .WithMany(p => p.Posts);
-                //.HasForeignKey(d => d.UserId)
-                //.HasConstraintName("FK_Posts_Users");
+                    .WithMany(p => p.Posts)
+                    .OnDelete(DeleteBehavior.SetNull);
 
             });
 
@@ -38,14 +35,11 @@ namespace Week15Project.Models
             {
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.Responses)
-                    //.HasForeignKey(d => d.PostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-                    //.HasConstraintName("FK_Responses_Posts");
+                .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Responses);
-                    //.HasForeignKey(d => d.UserId)
-                    //.HasConstraintName("FK_Responses_Users");
+                    .WithMany(p => p.Responses)
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
 
@@ -60,7 +54,7 @@ namespace Week15Project.Models
                 new Room() { RoomId = 4, RoomName = "Q&A Section", RoomDescription = "Ask a specific question. Get a specific answer." },
                 new Room() { RoomId = 5, RoomName = "SpaceX", RoomDescription = "Past missions. Current missions. Future missions. All here." },
                 new Room() { RoomId = 6, RoomName = "Images & Videos", RoomDescription = "A place to share images and videos." },
-                new Room() { RoomId = 7, RoomName = "Upcoming Events", RoomDescription = "A place to discuss upcoming events as seen in the 'Upcoming Events' Page"}
+                new Room() { RoomId = 7, RoomName = "Events", RoomDescription = "A place to discuss previous & upcoming events as seen in the 'Events' Page"}
                 );
 
             builder.Entity<IdentityRole>().HasData(
@@ -69,8 +63,8 @@ namespace Week15Project.Models
                 );
 
             builder.Entity<User>().HasData(
-                new User() { Id = "158c4445-8ce9-49ea-9fcb-5a9a2e76f63a", FirstName = "Michael", LastName = "Rath", UserName = "Admin", DateCreated = new DateTime(2022, 9, 25), Color = "#ffc107", NormalizedUserName = "ADMIN", Email = "name@mail.com", NormalizedEmail = "NAME@MAIL.COM", EmailConfirmed = false, PasswordHash = "AQAAAAEAACcQAAAAEBd61nKt0F2OlXFPD/cNJRdZvHsA6Ly5vlpUrc/FbmtVwj8+dl3UZ1Fl/HTyi2xwzA==", SecurityStamp = "WBCQHR57FRNZYS3GNHB3GR27NKLKLGSW", ConcurrencyStamp = "402cf21a-dd0c-4d39-b81c-b35b606364a7", PhoneNumber = "4254429927", PhoneNumberConfirmed = false, TwoFactorEnabled = false, LockoutEnd = null, LockoutEnabled = true, AccessFailedCount = 0 },
-                new User() { Id = "fb3a711c-ac29-4322-97ff-155e55736444", FirstName = "Michael", LastName = "Rath", UserName = "User", DateCreated = new DateTime(2022, 9, 20), Color = "#17a2b8", NormalizedUserName = "USER", Email = "name@mail.com", NormalizedEmail = "NAME@MAIL.COM", EmailConfirmed = false, PasswordHash = "AQAAAAEAACcQAAAAEF5kLocdLNHhMzrw3OMuwuaT8auZwWjNdHlcHqRhlihIUGY59rSE2nBvS3NwxxREOg==", SecurityStamp = "GO4ER5WN6ZAGYTFCDJBM6UOPAOLIHPXF", ConcurrencyStamp = "6ca3a9a9-6046-43fe-bacd-c7c403c1f1ab", PhoneNumber = "4254429927", PhoneNumberConfirmed = false, TwoFactorEnabled = false, LockoutEnd = null, LockoutEnabled = true, AccessFailedCount = 0 }
+                new User() { Id = "158c4445-8ce9-49ea-9fcb-5a9a2e76f63a", FirstName = "Michael", LastName = "Rath", UserName = "Admin", DateCreated = new DateTime(2022, 9, 20), Color = "#ffc107", NormalizedUserName = "ADMIN", Email = "name@mail.com", NormalizedEmail = "NAME@MAIL.COM", EmailConfirmed = false, PasswordHash = "AQAAAAEAACcQAAAAEBd61nKt0F2OlXFPD/cNJRdZvHsA6Ly5vlpUrc/FbmtVwj8+dl3UZ1Fl/HTyi2xwzA==", SecurityStamp = "WBCQHR57FRNZYS3GNHB3GR27NKLKLGSW", ConcurrencyStamp = "402cf21a-dd0c-4d39-b81c-b35b606364a7", PhoneNumber = "4254429927", PhoneNumberConfirmed = false, TwoFactorEnabled = false, LockoutEnd = null, LockoutEnabled = true, AccessFailedCount = 0 },
+                new User() { Id = "fb3a711c-ac29-4322-97ff-155e55736444", FirstName = "Michael", LastName = "Rath", UserName = "User", DateCreated = new DateTime(2022, 9, 21), Color = "#17a2b8", NormalizedUserName = "USER", Email = "name@mail.com", NormalizedEmail = "NAME@MAIL.COM", EmailConfirmed = false, PasswordHash = "AQAAAAEAACcQAAAAEF5kLocdLNHhMzrw3OMuwuaT8auZwWjNdHlcHqRhlihIUGY59rSE2nBvS3NwxxREOg==", SecurityStamp = "GO4ER5WN6ZAGYTFCDJBM6UOPAOLIHPXF", ConcurrencyStamp = "6ca3a9a9-6046-43fe-bacd-c7c403c1f1ab", PhoneNumber = "4254429927", PhoneNumberConfirmed = false, TwoFactorEnabled = false, LockoutEnd = null, LockoutEnabled = true, AccessFailedCount = 0 }
                 );
 
             builder.Entity<Post>().HasData(

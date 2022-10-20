@@ -17,17 +17,22 @@ namespace Week15Project.Services
 
         #region Post
         void AddPost(Post post);
+        void EditPost(Post post);
+        void DeletePost(int postId);
         List<Post> GetAllPosts(int roomID);
         Post GetPost(int id);
         List<Post> GetPostsByUser(string userId);
         Post GetNewestPost();
         Post GetMostPopularPostToday();
-
         int GetPostIdFromEventId(int newsId);
+        public int GetPostIdFromPhotoDate(DateTime date);
         #endregion
 
         #region Response
-        void AddResponse(Response message);
+        void AddResponse(Response response);
+        void EditResponse(Response response);
+        void DeleteResponse(int responseId);
+        Response GetResponse(int responseId);
         List<Response> GetAllResponses(int postId);
         List<Response> GetResponsesByUser(string userId);
         #endregion

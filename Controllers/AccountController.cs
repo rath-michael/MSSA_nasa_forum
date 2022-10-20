@@ -95,7 +95,7 @@ namespace Week15Project.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<ActionResult> GetUserProfile()
+        public async Task<ActionResult> ViewCurrentUserProfile()
         {
             User currentUser = await userManager.GetUserAsync(User);
 

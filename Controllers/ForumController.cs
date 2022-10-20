@@ -99,6 +99,37 @@ namespace Week15Project.Controllers
             }
             return RedirectToRoute("Error", "Home");
         }
+
+        public IActionResult EditPost(int postId)
+        {
+            Post post = repository.GetPost(postId);
+            if (post != null)
+            {
+                return View(post);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult EditPost(Post post)
+        {
+            repository.EditPost(post);
+            return RedirectToAction("ViewPost", new { postId = post.PostId });
+        }
+
+        public IActionResult DeletePost(int postId)
+        {
+            var post = repository.GetPost(postId);
+            try
+            {
+                repository.DeletePost(postId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return RedirectToAction("ViewRoom", new { roomId = post.RoomId });
+        }
         #endregion
 
         #region Response
@@ -125,6 +156,37 @@ namespace Week15Project.Controllers
                 // LOG ERROR HERE
             }
             return RedirectToAction("ViewPost", new { PostId = newResponse.PostId });
+        }
+
+        public IActionResult EditResponse(int responseId)
+        {
+            Response response = repository.GetResponse(responseId);
+            if (response != null)
+            {
+                return View(response);
+            }
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult EditResponse(Response response)
+        {
+            repository.EditResponse(response);
+            return RedirectToAction("ViewPost", new { postId = response.PostId });
+        }
+
+        public IActionResult DeleteResponse(int responseId)
+        {
+            Response response = repository.GetResponse(responseId);
+            try
+            {
+                repository.DeleteResponse(responseId);
+            }
+            catch (Exception ex)
+            {
+                // LOG ERROR HERE
+                throw;
+            }
+            return RedirectToAction("ViewPost", new { postId = response.PostId });
         }
         #endregion
     }

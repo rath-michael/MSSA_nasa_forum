@@ -1,6 +1,5 @@
 ﻿@model Post
 
-
 <div class="container">
     <div class="m-auto">
         <div class="card">
@@ -14,6 +13,11 @@
                         </div>
                         <a href="@Model.WebURL">@Model.WebURL</a>
                         <p class="mb-1">@Html.Raw(@Model.Message.Replace("\n", "<br/>"))</p>
+                        @if (Model.User.UserName == User.Identity.Name)
+                        {
+                            <a class="btn btn-warning" asp-controller="Forum" asp-action="EditPost" asp-route-postId="@Model.PostId">Edit Post</a>
+                            <a class="btn btn-danger" asp-controller="Forum" asp-action="DeletePost" asp-route-postId="@Model.PostId">Delete Post</a>
+                        }
                         @if (Model.User != null)
                         {
                             <p>Posted by: <a asp-controller="Account" asp-action="ViewUserProfile" asp-route-id="@Model.UserId">@Model.User.UserName</a> </p>
@@ -35,6 +39,11 @@
                     {
                         <div class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
+                                @if (Model.User.UserName == User.Identity.Name)
+                                {
+                                    <a class="btn btn-warning" asp-controller="Forum" asp-action="EditResponse" asp-route-responseId="@item.ResponseId">Edit</a>
+                                    <a class="btn btn-danger" asp-controller="Forum" asp-action="DeleteResponse" asp-route-responseId="@item.ResponseId">Delete</a>
+                                }
                                 @if (item.User != null)
                                 {
                                     <p>Posted by: <a asp-controller="Account" asp-action="ViewUserProfile" asp-route-id="@item.User.Id">@item.User.UserName</a></p>
@@ -46,7 +55,6 @@
                                 <small>@item.DatePosted.ToShortDateString() @item.DatePosted.ToShortTimeString()</small>
                             </div>
                             <p class="mb-1">@Html.Raw(@item.Message.Replace("\n", "<br/>"))</p>
-            
                         </div>
                     }
                 </div>
@@ -54,7 +62,6 @@
         </div>
     </div>
 </div>
-
 
 
 

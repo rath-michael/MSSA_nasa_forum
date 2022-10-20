@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 using System.Text.Json.Serialization;
 using Week15Project.Models;
 using Week15Project.Models.News;
@@ -29,6 +30,7 @@ namespace Week15Project.Controllers
         public IActionResult NasaPOTD(DateTime date)
         {
             string dateRequested = date.ToString("yyyy-MM-dd");
+
             try
             {
                 using (var client = factory.CreateClient())
@@ -37,6 +39,7 @@ namespace Week15Project.Controllers
                     var response = client.GetFromJsonAsync<NASA_POTD>("https://api.nasa.gov/planetary/apod?date=" + dateRequested + "&api_key=" + NASA_Key);
                     var potd = response.Result;
                     potd.DatePosted = DateTime.Parse(potd.DateString);
+                    potd.postId = repository.GetPostIdFromPhotoDate(potd.DatePosted);
                     return View(potd);
                 }
             }
@@ -75,7 +78,7 @@ namespace Week15Project.Controllers
                 using (var client = factory.CreateClient())
                 {
                     client.BaseAddress = new Uri("https://lldev.thespacedevs.com/2.2.0/");
-                    var response = client.GetFromJsonAsync<UpcomingEvent>("https://lldev.thespacedevs.com/2.2.0/event/upcoming/?limit=5");
+                    var response = client.GetFromJsonAsync<UpcomingEvent>("https://lldev.thespacedevs.com/2.2.0/event/upcoming/?limit=1");
                     var newsList = response.Result.Results;
                     foreach (var item in newsList)
                     {
@@ -98,21 +101,48 @@ namespace Week15Project.Controllers
                 Post post = new Post()
                 {
                     UserId = userManager.GetUserId(User),
-                    RoomId = 1,
+                    RoomId = result.RoomId,
                     DatePosted = DateTime.Now,
                     Title = result.Name,
                     Message = result.Description,
-                    // userimage
                     WebURL = result.NewsURL,
+                    // userimage
                     EventId = result.Id,
                 };
 
                 repository.AddPost(post);
-                return RedirectToAction("ViewRoom", "Forum", new { roomId = 1 });
+                return RedirectToAction("ViewRoom", "Forum", new { roomId = post.RoomId });
             }
             catch (Exception ex)
             {
                 // LOG ERROR HERE
+                return View("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AddPOTDToForum(NASA_POTD photo)
+        {
+            try
+            {
+                Post post = new Post()
+                {
+                    UserId = userManager.GetUserId(User),
+                    RoomId = 6,
+                    DatePosted = DateTime.Now,
+                    Title = photo.Title,
+                    Message = photo.Explanation,
+                    WebURL = photo.Url,
+                    // userimage
+                    POTDDate = photo.DatePosted
+                };
+
+                repository.AddPost(post);
+                return RedirectToAction("ViewRoom", "Forum", new { roomId = 6 });
+            }
+            catch (Exception ex)
+            {
+                // LOG ERROR HEREs
                 return View("Index", "Home");
             }
         }

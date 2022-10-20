@@ -36,8 +36,6 @@ namespace Week15Project.Services
                 .Include(p => p.Posts)
                 .ToList();
         }
-        // Update Room
-        // Delete Room
         #endregion
 
         #region User CRUD
@@ -59,6 +57,7 @@ namespace Week15Project.Services
                 .Where(x => x.Id == userId)
                 .Single();
         }
+        // Get User by UserName
         public User GetUserByName(string username)
         {
             return context.Users.Where(u => u.UserName == username).FirstOrDefault();
@@ -71,8 +70,6 @@ namespace Week15Project.Services
                 .Include(r => r.Responses)
                 .ToList();
         }
-        // Update User
-        // Delete User
         #endregion
 
         #region Post CRUD
@@ -85,6 +82,26 @@ namespace Week15Project.Services
                 context.SaveChanges();
             }
         }
+        // Edit Post
+        public void EditPost(Post post)
+        {
+            Post editPost = context.Posts.Where(p => p.PostId == post.PostId).Single();
+            if (editPost != null)
+            {
+                editPost.Title = post.Title;
+                editPost.Message = post.Message;
+                editPost.UserImage = post.UserImage;
+                editPost.WebURL = post.WebURL;
+            }
+            context.SaveChanges();
+        }
+        // Delete Post
+        public void DeletePost(int postId)
+        {
+            Post post = context.Posts.Where(p => p.PostId == postId).Single();
+            context.Posts.Remove(post);
+            context.SaveChanges();
+        }
         // Get Post
         public Post GetPost(int postID)
         {
@@ -92,8 +109,9 @@ namespace Week15Project.Services
                 .Include(r => r.Room)
                 .Include(u => u.User)
                 .Include(r => r.Responses)
-                .FirstOrDefault(x => x.PostId == postID);
+                .Single(x => x.PostId == postID);
         }
+        // Get all posts associated with UserId
         public List<Post> GetPostsByUser(string userId)
         {
             List<Post> posts = context.Posts.Where(p => p.UserId == userId).ToList();
@@ -109,24 +127,34 @@ namespace Week15Project.Services
                 .Where(x => x.RoomId == roomID)
                 .ToList();
         }
-        // Update Post
-        // Delete Post
+        // Get most recent post
         public Post GetNewestPost()
         {
-            Post post = context.Posts.OrderByDescending(x => x.DatePosted).FirstOrDefault();
+            Post post = context.Posts.OrderByDescending(x => x.DatePosted).First();
             return post;
         }
+        // Get post with most responses today
         public Post GetMostPopularPostToday()
         {
             var limit = DateTime.Now.AddDays(-1);
             List<Post> postsToday = context.Posts.Where(x => x.DatePosted > limit).Include(r => r.Responses).ToList();
-            Post post = postsToday.OrderByDescending(x => x.Responses.Count).FirstOrDefault();
+            Post post = postsToday.OrderByDescending(x => x.Responses.Count).First();
             return post;
         }
-
+        // Get post associated with specified EventId
         public int GetPostIdFromEventId(int newsId)
         {
             var post = context.Posts.Where(n => n.EventId == newsId).SingleOrDefault();
+            if (post == null)
+            {
+                return 0;
+            }
+            return post.PostId;
+        }
+        // Get post assocated with photo of the day
+        public int GetPostIdFromPhotoDate(DateTime date)
+        {
+            var post = context.Posts.Where(p => p.POTDDate == date).SingleOrDefault();
             if (post == null)
             {
                 return 0;
@@ -145,15 +173,33 @@ namespace Week15Project.Services
                 context.SaveChanges();
             }
         }
-        // Get Response
+        // Edit response
+        public void EditResponse(Response response)
+        {
+            Response editResponse = context.Responses.Where(p => p.ResponseId == response.ResponseId).Single();
+            if (editResponse != null)
+            {
+                editResponse.Message = response.Message;
+            }
+            context.SaveChanges();
+        }
+        // Delete response
+        public void DeleteResponse(int responseId)
+        {
+            var response = context.Responses.Where(r => r.ResponseId == responseId).Single();
+            context.Responses.Remove(response);
+            context.SaveChanges();
+        }
+        // Get Response by ReponseId
         public Response GetResponse(int responseId)
         {
             return context.Responses
                 .Include(u => u.User)
                 .Include(p => p.Post)
                 .Where(i => i.ResponseId == responseId)
-                .FirstOrDefault();
+                .Single();
         }
+        // Get responses associated with specific UserId
         public List<Response> GetResponsesByUser(string userId)
         {
             var responses = context.Responses.Where(r => r.UserId == userId).ToList();
@@ -167,8 +213,6 @@ namespace Week15Project.Services
                 .Where(x => x.PostId == postId)
                 .ToList();
         }
-        // Update Response
-        // Delete Response
         #endregion
 
         #region Other

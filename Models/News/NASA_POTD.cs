@@ -28,5 +28,6 @@ namespace Week15Project.Models.News
 
         [JsonPropertyName("url")]
         public string Url { get; set; }
+        public int? postId { get; set; }
     }
 }

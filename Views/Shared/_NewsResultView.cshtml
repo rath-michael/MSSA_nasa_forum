@@ -15,13 +15,13 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <div class="text-center m-auto">
-                                <span class="badge text-bg-primary m-auto">Event Type: @Model.EventType.Name</span>
+                                <span class="badge bg-primary m-auto">Event Type: @Model.EventType.Name</span>
                                 <input asp-for="EventType.Name" hidden/>
-                                <span class="badge text-bg-primary m-auto">Location: @Model.Location</span>
+                                <span class="badge bg-success m-auto">Location: @Model.Location</span>
                                 <input asp-for="Location" hidden/>
                                 @if (Model.LiveWebcast)
                                 {
-                                    <span class="badge text-bg-primary m-auto">
+                                    <span class="badge bg-info m-auto">
                                         <a href="@Model.VideoURL">Live Video Stream</a>
                                         <input asp-for="VideoURL" hidden/>
                                     </span>
@@ -46,7 +46,7 @@
                             {
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <select class="dropdown" asp-for="@Model.postId">
+                                    <select class="dropdown" asp-for="@Model.RoomId">
                                         <option value="1">General Discussion</option>
                                         <option value="2">Advanced Topics</option>
                                         <option value="3">International Space Station</option>

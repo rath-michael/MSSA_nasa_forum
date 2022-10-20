@@ -34,7 +34,7 @@ if (!app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var userDBContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    userDBContext.Database.EnsureDeleted();
+    //userDBContext.Database.EnsureDeleted();
     userDBContext.Database.EnsureCreated();
 }
 

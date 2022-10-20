@@ -7,10 +7,10 @@ namespace Week15Project.Models
     {
         public int ResponseId { get; set; }
         public int PostId { get; set; }
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         public DateTime DatePosted { get; set; }
         public string Message { get; set; } = null!;
         public virtual Post Post { get; set; } = null!;
-        public virtual User User { get; set; } = null!;
+        public virtual User? User { get; set; } = null!;
     }
 }

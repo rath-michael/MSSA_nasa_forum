@@ -38,5 +38,7 @@ namespace Week15Project.Models.News
         public DateTime Date { get; set; }
 
         public int? postId { get; set; }
+
+        public int RoomId { get; set; }
     }
 }

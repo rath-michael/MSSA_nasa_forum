@@ -4,25 +4,27 @@
     <p>@Model.UserName</p>
     <p>@Model.DateCreated</p>
     <p>@Model.Color</p>
-    <p>Posts</p>
+    <h5>Posts</h5>
     @foreach (var item in Model.Posts)
     {
         <div class="card">
             <div class="card-header">
                 <p>@item.Title</p>
                 <p>@item.DatePosted</p>
+                <a class="btn btn-success" asp-controller="Forum" asp-action="ViewPost" asp-route-postId="@item.PostId">View Discussion</a>
             </div>
             <div class="card-body">
                 <p>@item.Message</p>
             </div>
         </div>
     }
-    <p>Responses</p>
+    <h5>Responses</h5>
     @foreach (var item in Model.Responses)
     {
         <div class="card">
             <div class="card-header">
                 <p>@item.DatePosted</p>
+                <a class="btn btn-success" asp-controller="Forum" asp-action="ViewPost" asp-route-postId="@item.PostId">View Discussion</a>
             </div>
             <div class="card-body">
                 <p>@item.Message</p>
