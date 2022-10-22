@@ -2,12 +2,32 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container">
+<div class="container d-flex justify-content-center align-items-center h-75">
+    <div class="card" style="width: 25rem; height: 25rem;">
+        <div class="card-header text-center">
+            <h5>Forum</h5>
+        </div>
+        <div class="card-body">
+
+        </div>
+    </div>
+    <div class="card" style="width: 25rem; height: 25rem;">
+        <div class="card-header text-center">
+            <h5>Media Center</h5>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+
+
+@*<div class="container">
     <div class="row">
         <div class="col">
             <div class="card text-center" style="height: 20rem">
                 <div class="card-header">
-                    <p>Popular Today</p>
+                    <h5>Forum</h5>
                     <ul class="nav nav-tabs card-header-tabs text-center">
                         <li class="nav-item m-auto">
                             <a class="nav-link" asp-area="" asp-controller="Forum" asp-action="ViewNewestPost">Newest Post</a>
@@ -18,7 +38,6 @@
                     </ul>
                 </div>
                 <div class="card-body">
-                    <img src="..." class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Discussion Forum</h5>
                         <p class="card-text">A place to post and discuss about all things NASA.</p>
@@ -29,13 +48,18 @@
         </div>
         <div class="col">
             <div class="card text-center" style="height: 20rem">
-                <img src="..." class="card-img-top" alt="...">
+                <div class="card-header">
+                    <h5>Media</h5>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">NASA Feed</h5>
                     <p class="card-text">A variety of data and images directly from NASA</p>
                     <a class="btn btn-primary" asp-area="" asp-controller="News" asp-action="Index">View Feed</a>
+                    <a class="btn btn-primary" asp-controller="News" asp-action="NasaPOTD" asp-route-date="@DateTime.Now">NASA Picture Of The Day</a>
+                    <a class="btn btn-primary" asp-controller="News" asp-action="ViewPreviousEvents">View Previous Events</a>
+                    <a class="btn btn-primary" asp-controller="News" asp-action="ViewUpcomingEvents">View Upcoming Events</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div>*@

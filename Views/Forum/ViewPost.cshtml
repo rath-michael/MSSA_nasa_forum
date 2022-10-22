@@ -11,21 +11,26 @@
                             <h5 class="mb-1">@Model.Title</h5>
                             <small>@Model.DatePosted.ToShortDateString() at @Model.DatePosted.ToShortTimeString()</small>
                         </div>
-                        <a href="@Model.WebURL">@Model.WebURL</a>
-                        <p class="mb-1">@Html.Raw(@Model.Message.Replace("\n", "<br/>"))</p>
-                        @if (Model.User.UserName == User.Identity.Name)
-                        {
-                            <a class="btn btn-warning" asp-controller="Forum" asp-action="EditPost" asp-route-postId="@Model.PostId">Edit Post</a>
-                            <a class="btn btn-danger" asp-controller="Forum" asp-action="DeletePost" asp-route-postId="@Model.PostId">Delete Post</a>
-                        }
                         @if (Model.User != null)
                         {
-                            <p>Posted by: <a asp-controller="Account" asp-action="ViewUserProfile" asp-route-id="@Model.UserId">@Model.User.UserName</a> </p>
+                            <p>Posted by <a asp-controller="Account" asp-action="ViewUserProfile" asp-route-id="@Model.UserId">@Model.User.UserName</a> </p>
                         }
                         else
                         {
                             <small>User Deleted</small>
                         }
+                        <a href="@Model.WebURL">@Model.WebURL</a>
+                        <p class="mb-1">@Html.Raw(@Model.Message.Replace("\n", "<br/>"))</p>
+                        <div class="d-flex w-100 justify-content-between">
+                            <div></div>
+                            @if (Model.User.UserName == User.Identity.Name)
+                            {
+                                <div>
+                                    <a class="btn btn-warning" asp-controller="Forum" asp-action="EditPost" asp-route-postId="@Model.PostId"><img src="/icons/edit.png" height="20"/> Edit</a>
+                                    <a class="btn btn-danger" asp-controller="Forum" asp-action="DeletePost" asp-route-postId="@Model.PostId"><img src="/icons/delete.png" height="20"/> Delete</a>
+                                </div>   
+                            }
+                        </div>
                     </div>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -37,16 +42,11 @@
                 <div class="list-group">
                     @foreach (var item in Model.Responses)
                     {
-                        <div class="list-group-item">
+                        <div class="list-group-item mb-3 border">
                             <div class="d-flex w-100 justify-content-between">
-                                @if (Model.User.UserName == User.Identity.Name)
-                                {
-                                    <a class="btn btn-warning" asp-controller="Forum" asp-action="EditResponse" asp-route-responseId="@item.ResponseId">Edit</a>
-                                    <a class="btn btn-danger" asp-controller="Forum" asp-action="DeleteResponse" asp-route-responseId="@item.ResponseId">Delete</a>
-                                }
                                 @if (item.User != null)
                                 {
-                                    <p>Posted by: <a asp-controller="Account" asp-action="ViewUserProfile" asp-route-id="@item.User.Id">@item.User.UserName</a></p>
+                                    <p>Posted by <a asp-controller="Account" asp-action="ViewUserProfile" asp-route-id="@item.User.Id">@item.User.UserName</a></p>
                                 }
                                 else
                                 {
@@ -55,6 +55,16 @@
                                 <small>@item.DatePosted.ToShortDateString() @item.DatePosted.ToShortTimeString()</small>
                             </div>
                             <p class="mb-1">@Html.Raw(@item.Message.Replace("\n", "<br/>"))</p>
+                            <div class="d-flex w-100 justify-content-between">
+                                <div></div>
+                                <div>
+                                    @if (Model.User.UserName == User.Identity.Name)
+                                    {
+                                        <a class="btn btn-warning" asp-controller="Forum" asp-action="EditResponse" asp-route-responseId="@item.ResponseId"><img src="/icons/edit.png" height="20"/> Edit</a>
+                                        <a class="btn btn-danger" asp-controller="Forum" asp-action="DeleteResponse" asp-route-responseId="@item.ResponseId"><img src="/icons/delete.png" height="20"/> Delete</a>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     }
                 </div>
