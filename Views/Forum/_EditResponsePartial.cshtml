@@ -1,0 +1,18 @@
+﻿@model Response
+
+<form id="editResponseForm" asp-action="EditResponse">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="@Model.ResponseId" hidden />
+    <input asp-for="@Model.PostId" hidden />
+    <input asp-for="@Model.UserId" hidden />
+    <input asp-for="@Model.DatePosted" hidden />
+    <div class="form-group">
+        <label asp-for="@Model.Message" class="control-label"></label>
+        <textarea asp-for="@Model.Message" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="@Model.Message" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-success btn-sm" />
+        <a href="#" id="btnEditResponseCancel" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</a>
+    </div>
+</form>

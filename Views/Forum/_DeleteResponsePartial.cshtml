@@ -1,0 +1,6 @@
+﻿@model Response
+
+<form id="deletePostForm" asp-action="DeleteResponse">
+    <a class="btn btn-danger btn-sm" asp-controller="Forum" asp-action="DeleteResponse" asp-route-responseId="@Model.ResponseId">Confirm</a>
+    <a href="#" id="btnDeleteResponseCancel" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</a>
+</form>

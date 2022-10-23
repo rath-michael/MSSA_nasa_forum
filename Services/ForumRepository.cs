@@ -138,8 +138,12 @@ namespace Week15Project.Services
         {
             var limit = DateTime.Now.AddDays(-1);
             List<Post> postsToday = context.Posts.Where(x => x.DatePosted > limit).Include(r => r.Responses).ToList();
-            Post post = postsToday.OrderByDescending(x => x.Responses.Count).First();
-            return post;
+            if (postsToday.Count > 0)
+            {
+                Post post = postsToday.OrderByDescending(x => x.Responses.Count).First();
+                return post;
+            }
+            return null;
         }
         // Get post associated with specified EventId
         public int GetPostIdFromEventId(int newsId)

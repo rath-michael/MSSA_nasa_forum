@@ -60,12 +60,40 @@
                                 <div>
                                     @if (Model.User.UserName == User.Identity.Name)
                                     {
-                                        <a class="btn btn-warning btn-sm" asp-controller="Forum" asp-action="EditResponse" asp-route-responseId="@item.ResponseId"><img src="/icons/edit.png" height="20"/> Edit</a>
-                                        <a class="btn btn-danger btn-sm" asp-controller="Forum" asp-action="DeleteResponse" asp-route-responseId="@item.ResponseId"><img src="/icons/delete.png" height="20"/> Delete</a>
+                                        <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editResponseModal"><img src="/icons/edit.png" height="20"/> Edit</a>
+                                        <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteResponseModal"><img src="/icons/delete.png" height="20"/> Delete</a>
                                     }
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="modal fade" id="editResponseModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title">Edit Response</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                        @await Html.PartialAsync("_EditResponsePartial", item)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="deleteResponseModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title">Confirm Delete</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                        @await Html.PartialAsync("_DeleteResponsePartial", item)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     }
                 </div>
             </div>
@@ -81,7 +109,7 @@
             </div>
             <div class="modal-body">
                 <form id="deletePostForm" asp-action="DeletePost">
-                    <a class="btn btn-danger btn-sm" asp-controller="Forum" asp-action="DeletePost" asp-route-postId="@Model.PostId">Delete</a>
+                    <a class="btn btn-danger btn-sm" asp-controller="Forum" asp-action="DeletePost" asp-route-postId="@Model.PostId">Confirm</a>
                     <a href="#" id="btnDeletePostCancel" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</a>
                 </form>
             </div>
@@ -133,65 +161,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-@*
-
-<h6>@Model.Room.RoomName</h6>
-<div class="container">
-    <div class="m-auto">
-        <div class="card">
-            <div class="card-header bg-dark">
-                <div class="list-group-item bg-light">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">@Model.Title</h5>
-                        <small>@Model.DatePosted.ToShortDateString() at @Model.DatePosted.ToShortTimeString()</small>
-                    </div>
-                    <a href="@Model.WebURL">@Model.WebURL</a>
-                    <p class="mb-1">@Html.Raw(@Model.Message.Replace("\n", "<br/>"))</p>
-                    @if (Model.User != null)
-                    {
-                        <small>Posted by @Model.User.UserName</small>
-                    }
-                    else
-                    {
-                        <small>User Deleted</small>
-                    }
-                </div>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a class="btn btn-success" asp-controller="Forum" asp-action="NewResponse" asp-route-postID="@Model.PostId">Respond</a>
-                }
-            </div>
-            <div class="card-body bg-dark">
-                <div class="list-group">
-                    @foreach (var item in Model.Responses)
-                    {
-                        <div class="list-group-item">
-                            <div class="d-flex w-100 justify-content-between">
-                                @if (item.User != null)
-                                {
-                                    <h6 class="mb-1">Posted by @item.User.UserName</h6>
-                                }
-                                else
-                                {
-                                    <h6 class="mb-1">User Deleted</h6>
-                                }
-                                <small>@item.DatePosted.ToShortDateString() @item.DatePosted.ToShortTimeString()</small>
-                            </div>
-                            <p class="mb-1">@Html.Raw(@item.Message.Replace("\n", "<br/>"))</p>
-            
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div> 
-</div>*@

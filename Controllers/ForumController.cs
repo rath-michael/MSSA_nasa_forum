@@ -97,18 +97,18 @@ namespace Week15Project.Controllers
             {
                 return RedirectToAction("ViewPost", new { postId = popularPost.PostId });
             }
-            return RedirectToRoute("Error", "Home");
+            return RedirectToAction("Error", "Home");
         }
 
-        public IActionResult EditPost(int postId)
-        {
-            Post post = repository.GetPost(postId);
-            if (post != null)
-            {
-                return View(post);
-            }
-            return NotFound();
-        }
+        //public IActionResult EditPost(int postId)
+        //{
+        //    Post post = repository.GetPost(postId);
+        //    if (post != null)
+        //    {
+        //        return View(post);
+        //    }
+        //    return NotFound();
+        //}
 
         [HttpPost]
         public IActionResult EditPost(Post post)
