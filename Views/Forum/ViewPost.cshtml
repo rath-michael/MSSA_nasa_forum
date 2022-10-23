@@ -26,8 +26,8 @@
                             @if (Model.User.UserName == User.Identity.Name)
                             {
                                 <div>
-                                    <a class="btn btn-warning" asp-controller="Forum" asp-action="EditPost" asp-route-postId="@Model.PostId"><img src="/icons/edit.png" height="20"/> Edit</a>
-                                    <a class="btn btn-danger" asp-controller="Forum" asp-action="DeletePost" asp-route-postId="@Model.PostId"><img src="/icons/delete.png" height="20"/> Delete</a>
+                                    <a class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editPostModal"><img src="/icons/edit.png" height="20"/> Edit</a>
+                                    <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePostModal"><img src="/icons/delete.png" height="20"/> Delete</a>
                                 </div>   
                             }
                         </div>
@@ -60,8 +60,8 @@
                                 <div>
                                     @if (Model.User.UserName == User.Identity.Name)
                                     {
-                                        <a class="btn btn-warning" asp-controller="Forum" asp-action="EditResponse" asp-route-responseId="@item.ResponseId"><img src="/icons/edit.png" height="20"/> Edit</a>
-                                        <a class="btn btn-danger" asp-controller="Forum" asp-action="DeleteResponse" asp-route-responseId="@item.ResponseId"><img src="/icons/delete.png" height="20"/> Delete</a>
+                                        <a class="btn btn-warning btn-sm" asp-controller="Forum" asp-action="EditResponse" asp-route-responseId="@item.ResponseId"><img src="/icons/edit.png" height="20"/> Edit</a>
+                                        <a class="btn btn-danger btn-sm" asp-controller="Forum" asp-action="DeleteResponse" asp-route-responseId="@item.ResponseId"><img src="/icons/delete.png" height="20"/> Delete</a>
                                     }
                                 </div>
                             </div>
@@ -73,7 +73,66 @@
     </div>
 </div>
 
+<div class="modal fade" id="deletePostModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Confirm Delete</h2>
+            </div>
+            <div class="modal-body">
+                <form id="deletePostForm" asp-action="DeletePost">
+                    <a class="btn btn-danger btn-sm" asp-controller="Forum" asp-action="DeletePost" asp-route-postId="@Model.PostId">Delete</a>
+                    <a href="#" id="btnDeletePostCancel" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="editPostModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Post</h2>
+            </div>
+            <div class="modal-body">
+                <form id="editPostForm" asp-action="EditPost">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="PostId" hidden />
+                    <input asp-for="UserId" hidden />
+                    <input asp-for="RoomId" hidden />
+                    <input asp-for="DatePosted" hidden />
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Message" class="control-label"></label>
+                        <textarea asp-for="Message" class="form-control" rows="10"></textarea>
+                        <span asp-validation-for="Message" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserImage" class="control-label">Image</label>
+                        <input asp-for="UserImage" class="form-control" />
+                        <span asp-validation-for="UserImage" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WebURL" class="control-label">Web Link</label>
+                        <input asp-for="WebURL" class="form-control" />
+                        <span asp-validation-for="WebURL" class="text-danger"></span>
+                    </div>
+                    <input asp-for="EventId" hidden />
+                    <input asp-for="POTDDate" hidden />
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-success btn-sm" />
+                        <a href="#" id="btnEditPostCancel" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

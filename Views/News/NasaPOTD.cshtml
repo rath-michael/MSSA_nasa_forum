@@ -1,67 +1,57 @@
 ﻿@model Week15Project.Models.News.NASA_POTD
 
 @{
-    ViewData["Title"] = "NasaPOTD";
+    ViewData["Title"] = "NASA Picture Of The Day";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<div>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DatePosted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DatePosted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Explanation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Explanation)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Url)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="@Model.Url" class="img-fluid rounded-start" style="height: 250px;"/>
-        </dd>
-    </dl>
-</div>*@
-
-<div class="container">
-    <form asp-controller="News" asp-action="AddPOTDToForum">
-        @Html.DisplayFor(model => model.DatePosted)
-        <input asp-for="DatePosted" hidden />
-        @Html.DisplayFor(model => model.Explanation)
-        <input asp-for="Explanation" hidden />
-        @Html.DisplayFor(model => model.Title)
-        <input asp-for="Title" hidden />
-        <img src="@Model.Url" class="img-fluid rounded-start" style="height: 250px;"/>
-        <input asp-for="Url" hidden />
-        @if (Model.postId == 0)
-        {
-            @if (User.Identity.IsAuthenticated)
-        {
-            <input type="submit" value="Start a discussion" class="btn btn-primary" />
-        }
-        }
-        else
-        {
-            <a class="btn btn-success" asp-action="ViewPost" asp-controller="Forum" asp-route-postId="@Model.postId">View discussion</a>
-        }
-    </form>
-</div>
-
-<div>
-    <a class="btn btn-success" asp-controller="News" asp-action="NasaPOTD" asp-route-date="@Model.DatePosted.AddDays(-1)">View Previous</a>
+<form asp-controller="News" asp-action="AddPOTDToForum">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="container d-flex justify-content-center align-items-center">
+                <div class="card" style="max-width: 80%;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="@Model.Url" class="img-fluid rounded-start" alt="NASA Image of the Day">
+                            <input asp-for="Url" hidden />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.Title</h5>
+                                <input asp-for="Title" hidden />
+                                <p class="card-text">@Model.Explanation</p>
+                                <input asp-for="Explanation" hidden />
+                                <p class="card-text"><small class="text-muted">@Model.DatePosted.ToShortDateString()</small></p>
+                                <input asp-for="DatePosted" hidden />
+                                @if (Model.postId == 0)
+                                {
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <input type="submit" value="Start a discussion" class="btn btn-primary" />
+                                    }
+                                }
+                                else
+                                {
+                                    <a class="btn btn-success" asp-action="ViewPost" asp-controller="Forum" asp-route-postId="@Model.postId">View discussion</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a asp-controller="News" asp-action="NasaPOTD" asp-route-date="@Model.DatePosted.AddDays(-1)" class="carousel-control-prev" type="button">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
     @if (Model.DatePosted < DateTime.Today)
     {
-        <a class="btn btn-success" asp-controller="News" asp-action="NasaPOTD" asp-route-date="@Model.DatePosted.AddDays(1)">View Next</a>
+        <a asp-controller="News" asp-action="NasaPOTD" asp-route-date="@Model.DatePosted.AddDays(1)" class="carousel-control-next" type="button">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
     }
 </div>
+</form>

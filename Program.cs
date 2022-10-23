@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Week15Project.Controllers;
 using Week15Project.Models;
 using Week15Project.Models.ViewModels;
 using Week15Project.Services;
@@ -22,6 +23,7 @@ builder.Services.AddTransient<IRoomProfiler, RoomProfiler>();
 builder.Services.AddTransient<IUserProfiler, UserProfiler>();
 
 builder.Services.AddHttpClient();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -48,5 +50,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.UseEndpoints(endpoints =>
+    endpoints.MapHub<ChatHub>("/chatHub")
+    );
 app.Run();

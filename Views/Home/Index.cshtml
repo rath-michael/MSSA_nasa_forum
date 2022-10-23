@@ -8,7 +8,12 @@
             <h5>Forum</h5>
         </div>
         <div class="card-body">
-
+            <div>
+                <a class="nav-link" asp-area="" asp-controller="Forum" asp-action="ViewNewestPost">Newest Post</a>
+                <a class="nav-link" asp-area="" asp-controller="Forum" asp-action="ViewMostPopularToday">Most Popular Today</a>
+            </div>
+            <a class="btn btn-primary" asp-controller="Chat" asp-action="Index">Chat Room</a>
+            <a class="btn btn-primary" asp-area="" asp-controller="Forum" asp-action="ViewAllRooms">View Forum</a>
         </div>
     </div>
     <div class="card" style="width: 25rem; height: 25rem;">
@@ -16,7 +21,9 @@
             <h5>Media Center</h5>
         </div>
         <div class="card-body">
-            
+            <a class="btn btn-primary" asp-controller="News" asp-action="NasaPOTD" asp-route-date="@DateTime.Now">NASA Picture Of The Day</a>
+            <a class="btn btn-primary" asp-controller="News" asp-action="ViewPreviousEvents">View Previous Events</a>
+            <a class="btn btn-primary" asp-controller="News" asp-action="ViewUpcomingEvents">View Upcoming Events</a>
         </div>
     </div>
 </div>
