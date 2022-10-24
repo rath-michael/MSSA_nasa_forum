@@ -25,12 +25,12 @@
                                 {
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#postNASAPhoto">New Post</a>
+                                        <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#postNASAPhoto">New Post</a>
                                     }
                                 }
                                 else
                                 {
-                                    <a class="btn btn-success" asp-action="ViewPost" asp-controller="Forum" asp-route-postId="@Model.postId">View discussion</a>
+                                    <a class="btn btn-success btn-sm" asp-action="ViewPost" asp-controller="Forum" asp-route-postId="@Model.postId">View discussion</a>
                                 }
                             </div>
                         </div>
@@ -71,8 +71,13 @@
                         <label asp-for="Explanation" class="control-label"></label>
                         <textarea asp-for="Explanation" class="form-control" rows="10"></textarea>
                     </div>
-                    <input type="submit" value="Post" class="btn btn-success btn-sm" />
-                    <a href="#" id="btnDeletePostCancel" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</a>
+                    <div class="d-flex w-100 justify-content-between">
+                        <div></div>
+                        <div>
+                            <input type="submit" value="Post" class="btn btn-success btn-sm" />
+                            <a href="#" id="btnDeletePostCancel" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</a>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

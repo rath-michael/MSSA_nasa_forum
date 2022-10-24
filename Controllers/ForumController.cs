@@ -48,6 +48,7 @@ namespace Week15Project.Controllers
 
         #region Post
         [Route("NewPost")]
+        [Authorize(Roles = "Admin,User")]
         public IActionResult NewPost(int roomID)
         {
             Post newPost = new Post()
@@ -56,7 +57,7 @@ namespace Week15Project.Controllers
             };
             return View(newPost);
         }
-
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public IActionResult NewPost(Post newPost)
         {
