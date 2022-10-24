@@ -135,8 +135,7 @@ namespace Week15Project.Controllers
                     DatePosted = DateTime.Now,
                     Title = photo.Title,
                     Message = photo.Explanation,
-                    WebURL = photo.Url,
-                    // userimage
+                    UserImage = photo.Url,
                     POTDDate = photo.DatePosted
                 };
 
