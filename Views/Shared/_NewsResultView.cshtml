@@ -2,70 +2,90 @@
 
 
 <div class="container">
-    <form asp-controller="News" asp-action="AddEventToForum">
-        <input asp-for="Id" hidden />
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <div class="card-header">
-                            <img class="img-fluid rounded-start" style="height: 250px;" src="@Model.Image"/>
-                            <input asp-for="Image" hidden/>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <div class="text-center m-auto">
-                                <span class="badge bg-primary m-auto">Event Type: @Model.EventType.Name</span>
-                                <input asp-for="EventType.Name" hidden/>
-                                <span class="badge bg-success m-auto">Location: @Model.Location</span>
-                                <input asp-for="Location" hidden/>
-                                @if (Model.LiveWebcast)
-                                {
-                                    <span class="badge bg-info m-auto">
-                                        <a href="@Model.VideoURL">Live Video Stream</a>
-                                        <input asp-for="VideoURL" hidden/>
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="badge text-bg-primary m-auto">No Live Stream Available</span>
-                                }
-                            </div>
-                            <h5 class="card-title">@Model.Name</h5>
-                            <input asp-for="Name" hidden/>
-                            @if (Model.NewsURL != null)
-                            {
-                                <a class="card-text" href="@Model.NewsURL">Article</a>
-                                <input asp-for="NewsURL" hidden/>
-                            }
-                            <p class="card-text">@Model.Description</p>
-                            <input asp-for="Description" hidden/>
-                            <p class="card-text"><small class="text-muted">@Model.Date</small></p>
-                            <input asp-for="Date" hidden/>
-                            @if (Model.postId == 0)
-                            {
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <select class="dropdown" asp-for="@Model.RoomId">
-                                        <option value="1">General Discussion</option>
-                                        <option value="2">Advanced Topics</option>
-                                        <option value="3">International Space Station</option>
-                                        <option value="4">Q&A Section</option>
-                                        <option value="5">SpaceX</option>
-                                        <option value="6">Images & Videos</option>
-                                        <option value="7">Upcoming Events</option>
-                                    </select>
-                                    <input type="submit" value="Start a discussion" class="btn btn-primary" />
-                                }
-                            }
-                            else
-                            {
-                                <a class="btn btn-success" asp-action="ViewPost" asp-controller="Forum" asp-route-postId="@Model.postId">View discussion</a>
-                            } 
-                        </div>
-                    </div>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <div class="card-header">
+                    <img class="img-fluid rounded-start" style="height: 250px;" src="@Model.Image"/>
                 </div>
             </div>
-          
-        </form>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="text-center m-auto">
+                        <span class="badge bg-primary m-auto">Event Type: @Model.EventType.Name</span>
+                        <span class="badge bg-success m-auto">Location: @Model.Location</span>
+                        @if (Model.LiveWebcast)
+                        {
+                            <span class="badge bg-info m-auto">
+                                <a href="@Model.VideoURL">Live Video Stream</a>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-info m-auto">No Live Stream Available</span>
+                        }
+                    </div>
+                    <h5 class="card-title">@Model.Name</h5>
+                    @if (Model.NewsURL != null)
+                    {
+                        <a class="card-text" href="@Model.NewsURL">Article</a>
+                    }
+                    <p class="card-text">@Model.Description</p>
+                    <p class="card-text"><small class="text-muted">@Model.Date</small></p>
+                    @if (Model.postId == 0)
+                    {
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#postUpcomingEvent">New Post</a>
+                        }
+                    }
+                    else
+                    {
+                        <a class="btn btn-success" asp-action="ViewPost" asp-controller="Forum" asp-route-postId="@Model.postId">View discussion</a>
+                    } 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="postUpcomingEvent">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">New Post</h2>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Media" asp-action="AddEventToForum">
+                    <input asp-for="Id" hidden/>
+                    <input asp-for="Image" hidden/>
+                    <input asp-for="EventType.Name" hidden/>
+                    <input asp-for="Location" hidden/>
+                    <input asp-for="VideoURL" hidden/>
+                    <input asp-for="Name" hidden/>
+                    <input asp-for="NewsURL" hidden/>
+                    <input asp-for="NewsURL" hidden/>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Forum Room</label>
+                        <select class="dropdown form-control" asp-for="@Model.RoomId">
+                            <option value="1">General Discussion</option>
+                            <option value="2">Advanced Topics</option>
+                            <option value="3">International Space Station</option>
+                            <option value="4">Q&A Section</option>
+                            <option value="5">SpaceX</option>
+                            <option value="6">Images & Videos</option>
+                            <option value="7">Events</option>
+                        </select>
+                    </div>
+                    <input asp-for="Date" hidden/>
+                    <input type="submit" value="Post" class="btn btn-success btn-sm" />
+                    <a href="#" id="btnDeletePostCancel" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

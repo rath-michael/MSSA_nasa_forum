@@ -4,7 +4,7 @@
     <p>@Model.UserName</p>
     <p>@Model.DateCreated</p>
     <p>@Model.Color</p>
-    <h5>Posts</h5>
+    <h5>@Model.Posts.Count Posts</h5>
     @foreach (var item in Model.Posts)
     {
         <div class="card">
@@ -18,7 +18,7 @@
             </div>
         </div>
     }
-    <h5>Responses</h5>
+    <h5>@Model.Responses.Count Responses</h5>
     @foreach (var item in Model.Responses)
     {
         <div class="card">

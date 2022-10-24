@@ -9,8 +9,8 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div>
-            Signed in as: @User.Identity.Name
-            <a asp-action="ViewCurrentUserProfile" asp-controller="Account" asp-area="">Get User Profile</a>
+            <p>Signed in as: @User.Identity.Name</p>
+            <a asp-action="ViewCurrentUserProfile" asp-controller="Account" asp-area="">View Profile</a>
         </div>
         <div>
             <p>Joined: @profiler.CurrentUser.DateCreated.ToShortDateString()</p>

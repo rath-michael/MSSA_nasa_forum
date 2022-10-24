@@ -52,3 +52,13 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvasRight">
     @await Html.PartialAsync("_RightPopIn")
 </div>
+
+@*@{
+    var currUsers = User.Identities.ToList();
+}
+<div class="container bg-warning">
+    <p>Current users: </p>
+@foreach (var item in currUsers){
+    <p>@item.Name</p>
+}
+</div>*@

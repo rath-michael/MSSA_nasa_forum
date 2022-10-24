@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form asp-controller="News" asp-action="AddPOTDToForum">
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <div class="container d-flex justify-content-center align-items-center">
@@ -14,21 +14,18 @@
                     <div class="row g-0">
                         <div class="col-md-4">
                             <img src="@Model.Url" class="img-fluid rounded-start" alt="NASA Image of the Day">
-                            <input asp-for="Url" hidden />
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">@Model.Title</h5>
-                                <input asp-for="Title" hidden />
                                 <p class="card-text">@Model.Explanation</p>
-                                <input asp-for="Explanation" hidden />
                                 <p class="card-text"><small class="text-muted">@Model.DatePosted.ToShortDateString()</small></p>
-                                <input asp-for="DatePosted" hidden />
+
                                 @if (Model.postId == 0)
                                 {
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <input type="submit" value="Start a discussion" class="btn btn-primary" />
+                                        <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#postNASAPhoto">New Post</a>
                                     }
                                 }
                                 else
@@ -42,16 +39,42 @@
             </div>
         </div>
     </div>
-    <a asp-controller="News" asp-action="NasaPOTD" asp-route-date="@Model.DatePosted.AddDays(-1)" class="carousel-control-prev" type="button">
+    <a asp-controller="Media" asp-action="NasaPOTD" asp-route-date="@Model.DatePosted.AddDays(-1)" class="carousel-control-prev" type="button">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </a>
     @if (Model.DatePosted < DateTime.Today)
     {
-        <a asp-controller="News" asp-action="NasaPOTD" asp-route-date="@Model.DatePosted.AddDays(1)" class="carousel-control-next" type="button">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </a>
+        <a asp-controller="Media" asp-action="NasaPOTD" asp-route-date="@Model.DatePosted.AddDays(1)" class="carousel-control-next" type="button">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </a>
     }
 </div>
-</form>
+
+
+<div class="modal fade" id="postNASAPhoto">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">New Post</h2>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Media" asp-action="AddPOTDToForum">
+                    <input asp-for="Url" hidden />
+                    <input asp-for="DatePosted" hidden />
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Explanation" class="control-label"></label>
+                        <textarea asp-for="Explanation" class="form-control" rows="10"></textarea>
+                    </div>
+                    <input type="submit" value="Post" class="btn btn-success btn-sm" />
+                    <a href="#" id="btnDeletePostCancel" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

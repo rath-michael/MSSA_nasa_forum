@@ -8,14 +8,14 @@ using Week15Project.Services;
 
 namespace Week15Project.Controllers
 {
-    public class NewsController : Controller
+    public class MediaController : Controller
     {
         private string NASA_Key = "rDVAxMGgW9EzEbHCXVxogZrQS1JuDxBJhYI2s2dh";
         private IHttpClientFactory factory;
         private UserManager<User> userManager;
         private IForumRepository repository;
 
-        public NewsController(IHttpClientFactory factory, UserManager<User> _userManager, IForumRepository _repository)
+        public MediaController(IHttpClientFactory factory, UserManager<User> _userManager, IForumRepository _repository)
         {
             this.factory = factory;
             userManager = _userManager;
@@ -27,6 +27,7 @@ namespace Week15Project.Controllers
             return View();
         }
 
+        [Route("PictureOfTheDay")]
         public IActionResult NasaPOTD(DateTime date)
         {
             string dateRequested = date.ToString("yyyy-MM-dd");
@@ -49,6 +50,7 @@ namespace Week15Project.Controllers
             }
         }
 
+        [Route("PreviousEvents")]
         public IActionResult ViewPreviousEvents()
         {
             try
@@ -71,6 +73,7 @@ namespace Week15Project.Controllers
             }
         }
 
+        [Route("UpcomingEvents")]
         public IActionResult ViewUpcomingEvents()
         {
             try

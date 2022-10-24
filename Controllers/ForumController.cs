@@ -19,6 +19,7 @@ namespace Week15Project.Controllers
 
         #region Room
         [AllowAnonymous]
+        [Route("All")]
         public IActionResult ViewAllRooms()
         {
             var rooms = repository.GetAllRooms();
@@ -26,6 +27,7 @@ namespace Week15Project.Controllers
         }
 
         [AllowAnonymous]
+        [Route("Room/{roomId}")]
         public IActionResult ViewRoom(int roomId)
         {
             Room room = repository.GetRoom(roomId);
@@ -45,6 +47,7 @@ namespace Week15Project.Controllers
         #endregion
 
         #region Post
+        [Route("NewPost")]
         public IActionResult NewPost(int roomID)
         {
             Post newPost = new Post()
@@ -69,7 +72,7 @@ namespace Week15Project.Controllers
                 return RedirectToAction("Index");
             }
         }
-
+        [Route("Post/{postId}")]
         public IActionResult ViewPost(int postId)
         {
             Post post = repository.GetPost(postId);
@@ -79,7 +82,7 @@ namespace Week15Project.Controllers
             }
             return RedirectToRoute("Error", "Home");
         }
-
+        [Route("NewestPost")]
         public IActionResult ViewNewestPost()
         {
             Post newestPost = repository.GetNewestPost();
@@ -89,7 +92,7 @@ namespace Week15Project.Controllers
             }
             return RedirectToRoute("Error", "Home");
         }
-
+        [Route("PopularPost")]
         public IActionResult ViewMostPopularToday()
         {
             Post popularPost = repository.GetMostPopularPostToday();
@@ -109,14 +112,14 @@ namespace Week15Project.Controllers
         //    }
         //    return NotFound();
         //}
-
+        [Route("EditPost")]
         [HttpPost]
         public IActionResult EditPost(Post post)
         {
             repository.EditPost(post);
             return RedirectToAction("ViewPost", new { postId = post.PostId });
         }
-
+        
         public IActionResult DeletePost(int postId)
         {
             var post = repository.GetPost(postId);
@@ -133,6 +136,7 @@ namespace Week15Project.Controllers
         #endregion
 
         #region Response
+        [Route("NewResponse")]
         public IActionResult NewResponse(int postID)
         {
             Response response = new Response()
@@ -158,15 +162,15 @@ namespace Week15Project.Controllers
             return RedirectToAction("ViewPost", new { PostId = newResponse.PostId });
         }
 
-        public IActionResult EditResponse(int responseId)
-        {
-            Response response = repository.GetResponse(responseId);
-            if (response != null)
-            {
-                return View(response);
-            }
-            return NotFound();
-        }
+        //public IActionResult EditResponse(int responseId)
+        //{
+        //    Response response = repository.GetResponse(responseId);
+        //    if (response != null)
+        //    {
+        //        return View(response);
+        //    }
+        //    return NotFound();
+        //}
         [HttpPost]
         public IActionResult EditResponse(Response response)
         {
