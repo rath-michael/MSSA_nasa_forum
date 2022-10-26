@@ -4,9 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>View All Current Rooms</h1>
+@*<h1>All Rooms</h1>*@
 
-<div class="container">
+@*<div class="container">
     <div class="row">
     @foreach (var item in Model)
     {
@@ -22,8 +22,95 @@
         </div>
     }
 </div>
-</div>
+</div>*@
+
+@*<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row justify-content-center mb-3" style="background-image: url('/images/ISS.jpg'); background-repeat: no-repeat; background-position: center; height: 350px;">
+            <div class="col-10">
+                <div class="card text-bg-dark">
+                    <img src="images/ISS.jpg" height="200" alt="..."/>
+                    <div class="card-header">
+                        <p>Header</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Body</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>*@
+
+@*<div class="container">
+    @foreach (var item in Model)
+    {
+        <div id="back_image" class="row justify-content-center mt-3 mb-3" style="background-image: url('/images/@item.RoomImage'); background-repeat: no-repeat; background-position: center; height: 350px;">
+            <div class="col-10">
+                <h2>@item.RoomName</h2>
+                <h6>@item.RoomDescription</h6>
+            </div>
+        </div>
+    }
+</div>*@
+
 
 <div class="container">
-
+    @foreach (var item in Model)
+    {
+        <div class="row justify-content-center mt-3 mb-3">
+            <div class="col-12">
+                <div class="room_banner m-auto">
+                    <img src="/images/@item.RoomImage" alt="Avatar" class="banner_image">
+                    <div class="banner_overlay">
+                        <div class="banner_text">
+                            <h2>@item.RoomName</h2>
+                            <h6>@item.RoomDescription</h6>
+                            <a class="btn btn-primary" asp-controller="Forum" asp-action="ViewRoom" asp-route-roomId="@item.RoomId">Enter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
+
+<style>
+    .room_banner{
+        position: relative;
+        width: 75%;
+    }
+    .banner_image {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .banner_overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgb(23,25,25,0.5);
+        overflow: hidden;
+        width: 100%;
+        height: 0;
+        transition: .5s ease;
+    }
+
+    .room_banner:hover .banner_overlay {
+        height: 100%;
+    }
+
+    .banner_text {
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+</style>

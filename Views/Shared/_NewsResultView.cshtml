@@ -12,17 +12,19 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <div class="text-center m-auto">
-                        <span class="badge bg-primary m-auto">Event Type: @Model.EventType.Name</span>
-                        <span class="badge bg-success m-auto">Location: @Model.Location</span>
+                        @if (Model.EventType.Name != null)
+                        {
+                            <span class="badge bg-primary m-auto">Event Type: @Model.EventType.Name</span>
+                        }
+                        @if (Model.Location != null)
+                        {
+                            <span class="badge bg-success m-auto">Location: @Model.Location</span>
+                        }
                         @if (Model.LiveWebcast)
                         {
                             <span class="badge bg-info m-auto">
                                 <a href="@Model.VideoURL">Live Video Stream</a>
                             </span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-info m-auto">No Live Stream Available</span>
                         }
                     </div>
                     <h5 class="card-title">@Model.Name</h5>
@@ -65,6 +67,10 @@
                     <input asp-for="Name" hidden/>
                     <input asp-for="NewsURL" hidden/>
                     <input asp-for="NewsURL" hidden/>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control"/>
+                    </div>
                     <div class="form-group">
                         <label asp-for="Description" class="control-label"></label>
                         <textarea asp-for="Description" class="form-control" rows="5"></textarea>

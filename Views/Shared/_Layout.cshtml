@@ -37,13 +37,61 @@
     <div class="vh-100">
         @RenderBody()
     </div>
+    <div class="footer position-fixed">
+        <div class="d-flex w-100 justify-content-between">
+            <div></div>
+            <div>
+                <img src="/images/rocket_noflame.jpg" id="rocket_noflame_icon"/>
+                <img src="/images/rocket.jpg" id="rocket_icon"/>
+                <button id="launch_button" class="btn me-4" 
+                    style="background-color: #2ba805; box-shadow: 0 0 5px #2ba805;">Launch</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            let button = document.getElementById("launch_button");
+            let rocket = document.getElementById("rocket_icon");
+            let rocket_noflame = document.getElementById("rocket_noflame_icon");
+
+            rocket_noflame.style.display = "inline";
+            rocket.style.display = "none";
+
+
+
+
+
+            button.onclick = function(event) {
+                button.style.animationPlayState  = "paused";
+                rocket_noflame.style.animation = "none";
+                rocket_noflame.style.animation = "slideLeft 3s ease none";
+
+                setTimeout(function() {
+                    rocket_noflame.style.display = "none";
+                    rocket.style.display = "inline";
+                    rocket.style.animation = "none";
+                    rocket.style.animation = "vibrate 0.1s ease infinite";
+                }, 3000);
+                setTimeout(function() {
+                    rocket.style.animation = "none";
+                    rocket.style.animation = "launch 3s ease none";
+                }, 5000);
+                setTimeout(function() {
+                    button.style.animationPlayState = "running";
+                    rocket.style.animation = "none";
+                    rocket.style.display = "none";
+                    rocket_noflame.style.animation = "none";
+                    rocket_noflame.style.display = "inline";
+                }, 8000);
+            }
+        }
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offCanvasLeft">
   @await Html.PartialAsync("_LeftPopIn")
@@ -52,13 +100,3 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvasRight">
     @await Html.PartialAsync("_RightPopIn")
 </div>
-
-@*@{
-    var currUsers = User.Identities.ToList();
-}
-<div class="container bg-warning">
-    <p>Current users: </p>
-@foreach (var item in currUsers){
-    <p>@item.Name</p>
-}
-</div>*@

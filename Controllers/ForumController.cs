@@ -23,6 +23,10 @@ namespace Week15Project.Controllers
         public IActionResult ViewAllRooms()
         {
             var rooms = repository.GetAllRooms();
+            if (rooms == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
             return View(rooms);
         }
 
@@ -33,7 +37,7 @@ namespace Week15Project.Controllers
             Room room = repository.GetRoom(roomId);
             if (room == null)
             {
-                return RedirectToRoute("Error", "Home");
+                return RedirectToAction("Error", "Home");
             }
             else
             {
@@ -51,12 +55,17 @@ namespace Week15Project.Controllers
         [Authorize(Roles = "Admin,User")]
         public IActionResult NewPost(int roomID)
         {
-            Post newPost = new Post()
+            if (roomID > 0)
             {
-                RoomId = roomID,
-            };
-            return View(newPost);
+                Post newPost = new Post()
+                {
+                    RoomId = roomID,
+                };
+                return View(newPost);
+            }
+            return RedirectToAction("Error", "Home");
         }
+
         [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public IActionResult NewPost(Post newPost)
@@ -70,9 +79,10 @@ namespace Week15Project.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Error", "Home");
             }
         }
+
         [Route("Post/{postId}")]
         public IActionResult ViewPost(int postId)
         {
@@ -81,27 +91,35 @@ namespace Week15Project.Controllers
             {
                 return View(post);
             }
-            return RedirectToRoute("Error", "Home");
+            return RedirectToAction("Error", "Home");
         }
+
         [Route("NewestPost")]
         public IActionResult ViewNewestPost()
         {
-            Post newestPost = repository.GetNewestPost();
-            if (newestPost != null)
+            try
             {
+                Post newestPost = repository.GetNewestPost();
                 return RedirectToAction("ViewPost", new { postId = newestPost.PostId });
             }
-            return RedirectToRoute("Error", "Home");
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
+
         [Route("PopularPost")]
         public IActionResult ViewMostPopularToday()
         {
-            Post popularPost = repository.GetMostPopularPostToday();
-            if (popularPost != null)
+            try
             {
+                Post popularPost = repository.GetMostPopularPostToday(); ;
                 return RedirectToAction("ViewPost", new { postId = popularPost.PostId });
             }
-            return RedirectToAction("Error", "Home");
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         //public IActionResult EditPost(int postId)
@@ -117,22 +135,29 @@ namespace Week15Project.Controllers
         [HttpPost]
         public IActionResult EditPost(Post post)
         {
-            repository.EditPost(post);
-            return RedirectToAction("ViewPost", new { postId = post.PostId });
+            try
+            {
+                repository.EditPost(post);
+                return RedirectToAction("ViewPost", new { postId = post.PostId });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
         
         public IActionResult DeletePost(int postId)
         {
-            var post = repository.GetPost(postId);
             try
             {
+                var post = repository.GetPost(postId);
                 repository.DeletePost(postId);
+                return RedirectToAction("ViewRoom", new { roomId = post.RoomId });
             }
             catch (Exception ex)
             {
-                throw;
+                return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("ViewRoom", new { roomId = post.RoomId });
         }
         #endregion
 
@@ -140,11 +165,15 @@ namespace Week15Project.Controllers
         [Route("NewResponse")]
         public IActionResult NewResponse(int postID)
         {
-            Response response = new Response()
+            if (postID > 0)
             {
-                PostId = postID
-            };
-            return View(response);
+                Response response = new Response()
+                {
+                    PostId = postID
+                };
+                return View(response);
+            }
+            return RedirectToAction("Error", "Home");
         }
 
         [HttpPost]
@@ -155,12 +184,12 @@ namespace Week15Project.Controllers
                 newResponse.UserId = userManager.GetUserId(User);
                 newResponse.DatePosted = DateTime.Now;
                 repository.AddResponse(newResponse);
+                return RedirectToAction("ViewPost", new { PostId = newResponse.PostId });
             }
             catch (Exception ex)
             {
-                // LOG ERROR HERE
+                return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("ViewPost", new { PostId = newResponse.PostId });
         }
 
         //public IActionResult EditResponse(int responseId)
@@ -175,23 +204,29 @@ namespace Week15Project.Controllers
         [HttpPost]
         public IActionResult EditResponse(Response response)
         {
-            repository.EditResponse(response);
-            return RedirectToAction("ViewPost", new { postId = response.PostId });
+            try
+            {
+                repository.EditResponse(response);
+                return RedirectToAction("ViewPost", new { postId = response.PostId });
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public IActionResult DeleteResponse(int responseId)
         {
-            Response response = repository.GetResponse(responseId);
             try
             {
+                Response response = repository.GetResponse(responseId);
                 repository.DeleteResponse(responseId);
+                return RedirectToAction("ViewPost", new { postId = response.PostId });
             }
             catch (Exception ex)
             {
-                // LOG ERROR HERE
-                throw;
+                return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("ViewPost", new { postId = response.PostId });
         }
         #endregion
     }

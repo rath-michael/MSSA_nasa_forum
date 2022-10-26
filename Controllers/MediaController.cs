@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Text.Json.Serialization;
@@ -30,10 +31,9 @@ namespace Week15Project.Controllers
         [Route("PictureOfTheDay")]
         public IActionResult NasaPOTD(DateTime date)
         {
-            string dateRequested = date.ToString("yyyy-MM-dd");
-
             try
             {
+                string dateRequested = date.ToString("yyyy-MM-dd");
                 using (var client = factory.CreateClient())
                 {
                     client.BaseAddress = new Uri("https://api.nasa.gov/planetary/apod");
@@ -46,7 +46,7 @@ namespace Week15Project.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -69,7 +69,7 @@ namespace Week15Project.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -92,10 +92,11 @@ namespace Week15Project.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public IActionResult AddEventToForum(EventResult result)
         {
@@ -118,11 +119,11 @@ namespace Week15Project.Controllers
             }
             catch (Exception ex)
             {
-                // LOG ERROR HERE
-                return View("Index", "Home");
+                return RedirectToAction("Error", "Home");
             }
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public IActionResult AddPOTDToForum(NASA_POTD photo)
         {
@@ -144,8 +145,7 @@ namespace Week15Project.Controllers
             }
             catch (Exception ex)
             {
-                // LOG ERROR HEREs
-                return View("Index", "Home");
+                return RedirectToAction("Error", "Home");
             }
         }
     }

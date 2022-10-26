@@ -14,5 +14,78 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+#launch_button {
+    animation: glowing 1300ms infinite;
+}
+
+@keyframes glowing {
+    0% {
+        background-color: #2ba805;
+        box-shadow: 0 0 5px #2ba805;
+    }
+    50% {
+        background-color: #49e819;
+        box-shadow: 0 0 20px #49e819;
+    }
+    100% {
+        background-color: #2ba805;
+        box-shadow: 0 0 5px #2ba805;
+    }
+}
+
+#rocket_icon {
+    height: 75px;
+    position: relative;
+    bottom: 90%;
+    right: -45%;
+}
+
+#rocket_noflame_icon {
+    height: 75px;
+    position: relative;
+    bottom: 90%;
+    right: -100%;
+}
+
+@keyframes slideLeft {
+    0% {
+        bottom: 90%;
+        right: -100%;
+    }
+
+    100% {
+        bottom: 90%;
+        right: -45%;
+    }
+}
+
+@keyframes vibrate {
+    0% {
+        bottom: 90%;
+        right: -45%;
+    }
+
+    50% {
+        bottom: 95%;
+        right: -45%;
+    }
+
+    100% {
+        bottom: 90%;
+        right: -45%;
+    }
+}
+
+@keyframes launch {
+    0% {
+        bottom: 90%;
+        right: -45%;
+    }
+    100% {
+        bottom: 2200%;
+        right: -45%;
+    }
 }

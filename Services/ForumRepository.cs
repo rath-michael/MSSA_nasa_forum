@@ -32,9 +32,7 @@ namespace Week15Project.Services
         // Get All Rooms
         public List<Room> GetAllRooms()
         {
-            return context.Rooms
-                .Include(p => p.Posts)
-                .ToList();
+            return context.Rooms.Include(p => p.Posts).ToList();
         }
         #endregion
 

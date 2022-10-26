@@ -48,13 +48,13 @@ namespace Week15Project.Models
             //=======================
 
             builder.Entity<Room>().HasData(
-                new Room() { RoomId = 1, RoomName = "General Discussion", RoomDescription = "General space exploration discussion. All topics welcome here." },
-                new Room() { RoomId = 2, RoomName = "Advanced Topics", RoomDescription = "Topics about future space flights and how they might be done." },
-                new Room() { RoomId = 3, RoomName = "International Space Station", RoomDescription = "Discussion about the International Space Station." },
-                new Room() { RoomId = 4, RoomName = "Q&A Section", RoomDescription = "Ask a specific question. Get a specific answer." },
-                new Room() { RoomId = 5, RoomName = "SpaceX", RoomDescription = "Past missions. Current missions. Future missions. All here." },
-                new Room() { RoomId = 6, RoomName = "Images & Videos", RoomDescription = "A place to share images and videos." },
-                new Room() { RoomId = 7, RoomName = "Events", RoomDescription = "A place to discuss previous & upcoming events as seen in the 'Events' Page"}
+                new Room() { RoomId = 1, RoomName = "General Discussion", RoomDescription = "General space exploration discussion. All topics welcome here.", RoomImage = "spacesuit.jpg" },
+                new Room() { RoomId = 2, RoomName = "Advanced Topics", RoomDescription = "Topics about advanced space flight concepts and how they might be achieved.", RoomImage = "diagram.jpg" },
+                new Room() { RoomId = 3, RoomName = "International Space Station", RoomDescription = "Discussion about the International Space Station.", RoomImage = "ISS.jpg" },
+                new Room() { RoomId = 4, RoomName = "Q&A Section", RoomDescription = "Ask a specific question. Get a specific answer." , RoomImage = "shuttle.jpg" },
+                new Room() { RoomId = 5, RoomName = "SpaceX", RoomDescription = "Past missions. Current missions. Future missions. All here.", RoomImage = "spacex.jpg" },
+                new Room() { RoomId = 6, RoomName = "Images & Videos", RoomDescription = "A place to share images and videos.", RoomImage = "space.jpg" },
+                new Room() { RoomId = 7, RoomName = "Events", RoomDescription = "A place to discuss previous & upcoming events as seen in the 'Events' Page", RoomImage = "launch.jpg" }
                 );
 
             builder.Entity<IdentityRole>().HasData(
