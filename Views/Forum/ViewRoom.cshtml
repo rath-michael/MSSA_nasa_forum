@@ -8,11 +8,10 @@
     <div class="card">
         <div class="card-header d-flex">
             <h1 class="p-2 me-auto">@Model.RoomName</h1>
-            <a class="btn btn-success" asp-controller="Forum" asp-action="NewPost" asp-route-roomID="@Model.RoomId">New Post</a>
-                @*@if (User.Identity.IsAuthenticated)
-                {
-                    <a class="btn btn-success" asp-controller="Forum" asp-action="NewPost" asp-route-roomID="@Model.RoomId">New Post</a>
-                }*@
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-success" asp-controller="Forum" asp-action="NewPost" asp-route-roomID="@Model.RoomId">New Post</a>
+            }
         </div>
         <div class="card-body">
             @foreach (var item in Model.Posts)

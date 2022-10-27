@@ -100,27 +100,45 @@ namespace Week15Project.Controllers
         [HttpPost]
         public IActionResult AddEventToForum(EventResult result)
         {
-            try
+            Post post = new Post()
             {
-                Post post = new Post()
-                {
-                    UserId = userManager.GetUserId(User),
-                    RoomId = result.RoomId,
-                    DatePosted = DateTime.Now,
-                    Title = result.Name,
-                    Message = result.Description,
-                    WebURL = result.NewsURL,
-                    // userimage
-                    EventId = result.Id,
-                };
+                UserId = userManager.GetUserId(User),
+                RoomId = result.RoomId,
+                DatePosted = DateTime.Now,
+                Title = result.Name,
+                Message = result.Description,
+                WebURL = result.NewsURL,
+                // userimage
+                EventId = result.Id,
+            };
 
-                repository.AddPost(post);
-                return RedirectToAction("ViewRoom", "Forum", new { roomId = post.RoomId });
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Error", "Home");
-            }
+            repository.AddPost(post);
+            return RedirectToAction("ViewRoom", "Forum", new { roomId = post.RoomId });
+
+
+
+
+            //try
+            //{
+            //    Post post = new Post()
+            //    {
+            //        UserId = userManager.GetUserId(User),
+            //        RoomId = result.RoomId,
+            //        DatePosted = DateTime.Now,
+            //        Title = result.Name,
+            //        Message = result.Description,
+            //        WebURL = result.NewsURL,
+            //        // userimage
+            //        EventId = result.Id,
+            //    };
+
+            //    repository.AddPost(post);
+            //    return RedirectToAction("ViewRoom", "Forum", new { roomId = post.RoomId });
+            //}
+            //catch (Exception ex)
+            //{
+            //    return RedirectToAction("Error", "Home");
+            //}
         }
 
         [Authorize(Roles = "Admin,User")]
