@@ -1,0 +1,20 @@
+﻿@model Response
+
+@{
+    int id = (int)ViewData["postId"];
+}
+
+<form asp-controller="Forum" asp-action="NewResponse">
+    <input asp-for="PostId" value="@id" hidden/>
+    <div class="form-group">
+        <label asp-for="Message" class="control-label"></label>
+        <textarea asp-for="Message" class="form-control" rows="10"></textarea>
+    </div>
+    <div class="d-flex w-100 justify-content-between">
+        <div></div>
+        <div>
+            <input type="submit" value="Post" class="btn btn-success btn-sm" />
+            <a href="#" id="newResponseModal" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</a>
+        </div>
+    </div>
+</form>

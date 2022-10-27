@@ -16,9 +16,10 @@ namespace Week15Project.Models
         public DateTime DatePosted { get; set; }
         public string Title { get; set; } = null!;
         public string Message { get; set; } = null!;
-        public string? UserImage { get; set; }
+        //public string? UserImage { get; set; }
+        public string? MediaURL { get; set; }
+        public string? MediaType { get; set; }
         public string? WebURL { get; set; }
-        //public bool Locked { get; set; }
         public int EventId { get; set; } // associates post with news event
         public DateTime POTDDate { get; set; } // associates post with nasa potd
         public virtual Room Room { get; set; } = null!;

@@ -88,7 +88,7 @@ namespace Week15Project.Services
             {
                 editPost.Title = post.Title;
                 editPost.Message = post.Message;
-                editPost.UserImage = post.UserImage;
+                editPost.MediaURL = post.MediaURL;
                 editPost.WebURL = post.WebURL;
             }
             context.SaveChanges();

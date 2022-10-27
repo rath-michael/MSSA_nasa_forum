@@ -4,58 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-@*<h1>All Rooms</h1>*@
-
-@*<div class="container">
-    <div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-3 mb-3">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h3 class="card-title">@item.RoomName</h3>
-                    <p class="card-text">@item.RoomDescription</p>
-                    <p class="card-text">Posts: @item.Posts.Count</p>
-                    <a class="btn btn-primary stretched-link" asp-controller="Forum" asp-action="ViewRoom" asp-route-roomId="@item.RoomId">View Room</a>
-                </div> 
-            </div>
-        </div>
-    }
-</div>
-</div>*@
-
-@*<div class="container">
-    @foreach (var item in Model)
-    {
-        <div class="row justify-content-center mb-3" style="background-image: url('/images/ISS.jpg'); background-repeat: no-repeat; background-position: center; height: 350px;">
-            <div class="col-10">
-                <div class="card text-bg-dark">
-                    <img src="images/ISS.jpg" height="200" alt="..."/>
-                    <div class="card-header">
-                        <p>Header</p>
-                    </div>
-                    <div class="card-body">
-                        <p>Body</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-</div>*@
-
-@*<div class="container">
-    @foreach (var item in Model)
-    {
-        <div id="back_image" class="row justify-content-center mt-3 mb-3" style="background-image: url('/images/@item.RoomImage'); background-repeat: no-repeat; background-position: center; height: 350px;">
-            <div class="col-10">
-                <h2>@item.RoomName</h2>
-                <h6>@item.RoomDescription</h6>
-            </div>
-        </div>
-    }
-</div>*@
-
-
 <div class="container">
     @foreach (var item in Model)
     {
@@ -65,8 +13,8 @@
                     <img src="/images/@item.RoomImage" alt="Avatar" class="banner_image">
                     <div class="banner_overlay">
                         <div class="banner_text">
-                            <h2>@item.RoomName</h2>
-                            <h6>@item.RoomDescription</h6>
+                            <h1 class="display-6 mx-auto"><strong>@item.RoomName</strong></h1>
+                            <h6 class="lead">@item.RoomDescription</h6>
                             <a class="btn btn-primary" asp-controller="Forum" asp-action="ViewRoom" asp-route-roomId="@item.RoomId">Enter</a>
                         </div>
                     </div>

@@ -16,9 +16,9 @@ namespace Week15Project.Controllers
         private UserManager<User> userManager;
         private IForumRepository repository;
 
-        public MediaController(IHttpClientFactory factory, UserManager<User> _userManager, IForumRepository _repository)
+        public MediaController(IHttpClientFactory _factory, UserManager<User> _userManager, IForumRepository _repository)
         {
-            this.factory = factory;
+            factory = _factory;
             userManager = _userManager;
             repository = _repository;
         }
@@ -100,45 +100,28 @@ namespace Week15Project.Controllers
         [HttpPost]
         public IActionResult AddEventToForum(EventResult result)
         {
-            Post post = new Post()
+            try
             {
-                UserId = userManager.GetUserId(User),
-                RoomId = result.RoomId,
-                DatePosted = DateTime.Now,
-                Title = result.Name,
-                Message = result.Description,
-                WebURL = result.NewsURL,
-                // userimage
-                EventId = result.Id,
-            };
+                Post post = new Post()
+                {
+                    UserId = userManager.GetUserId(User),
+                    RoomId = result.RoomId,
+                    DatePosted = DateTime.Now,
+                    Title = result.Name,
+                    Message = result.Description,
+                    WebURL = result.NewsURL,
+                    MediaType = "image",
+                    MediaURL = result.Image,
+                    EventId = result.Id,
+                };
 
-            repository.AddPost(post);
-            return RedirectToAction("ViewRoom", "Forum", new { roomId = post.RoomId });
-
-
-
-
-            //try
-            //{
-            //    Post post = new Post()
-            //    {
-            //        UserId = userManager.GetUserId(User),
-            //        RoomId = result.RoomId,
-            //        DatePosted = DateTime.Now,
-            //        Title = result.Name,
-            //        Message = result.Description,
-            //        WebURL = result.NewsURL,
-            //        // userimage
-            //        EventId = result.Id,
-            //    };
-
-            //    repository.AddPost(post);
-            //    return RedirectToAction("ViewRoom", "Forum", new { roomId = post.RoomId });
-            //}
-            //catch (Exception ex)
-            //{
-            //    return RedirectToAction("Error", "Home");
-            //}
+                repository.AddPost(post);
+                return RedirectToAction("ViewRoom", "Forum", new { roomId = post.RoomId });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [Authorize(Roles = "Admin,User")]
@@ -154,7 +137,8 @@ namespace Week15Project.Controllers
                     DatePosted = DateTime.Now,
                     Title = photo.Title,
                     Message = photo.Explanation,
-                    UserImage = photo.Url,
+                    MediaURL = photo.Url,
+                    MediaType = photo.MediaType,
                     POTDDate = photo.DatePosted
                 };
 

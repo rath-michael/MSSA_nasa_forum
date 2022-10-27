@@ -162,19 +162,19 @@ namespace Week15Project.Controllers
         #endregion
 
         #region Response
-        [Route("NewResponse")]
-        public IActionResult NewResponse(int postID)
-        {
-            if (postID > 0)
-            {
-                Response response = new Response()
-                {
-                    PostId = postID
-                };
-                return View(response);
-            }
-            return RedirectToAction("Error", "Home");
-        }
+        //[Route("NewResponse")]
+        //public IActionResult NewResponse(int postID)
+        //{
+        //    if (postID > 0)
+        //    {
+        //        Response response = new Response()
+        //        {
+        //            PostId = postID
+        //        };
+        //        return View(response);
+        //    }
+        //    return RedirectToAction("Error", "Home");
+        //}
 
         [HttpPost]
         public IActionResult NewResponse(Response newResponse)

@@ -4,34 +4,24 @@
     ViewData["Title"] = "NewPost";
 }
 
-<h1>NewPost</h1>
 
-<h4>Post</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <h1 class="display-3 text-center">New Post</h1>
+    <div class="col-md-8">
         <form asp-controller="Forum" asp-action="NewPost">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input asp-for="RoomId" class ="form-control" value="@Model.RoomId" hidden/>
             </div>
-            @*<div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>*@
-            @*<div class="form-group">
-                <label asp-for="DatePosted" class="control-label"></label>
-                <input asp-for="DatePosted" class="form-control" />
-                <span asp-validation-for="DatePosted" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WebURL" class="control-label"></label>
+                <label asp-for="WebURL" class="control-label">Web Link</label>
                 <input asp-for="WebURL" class="form-control" />
                 <span asp-validation-for="WebURL" class="text-danger"></span>
             </div>
@@ -40,24 +30,11 @@
                 <textarea asp-for="Message" class="form-control" rows="10"></textarea>
                 <span asp-validation-for="Message" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="UserImage" class="control-label"></label>
-                <input asp-for="UserImage" class="form-control" />
-                <span asp-validation-for="UserImage" class="text-danger"></span>
-            </div>*@
-            @*<div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Locked" /> @Html.DisplayNameFor(model => model.Locked)
-                </label>
-            </div>*@
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <input type="submit" value="Submit" class="btn btn-primary" />
+                <a class="btn btn-danger" asp-action="ViewRoom" asp-controller="Forum" asp-route-roomId="@Model.RoomId">Cancel</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
-
